@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<apps>
+	<app>
+		<id>dk.motnok.sputnik</id>
+		<name>Sputnik.dk</name>
+		<version>1.0</version>
+		<description>Sputnik VOD service (Unofficial)</description>
+		<thumb>http://motnok.github.com/sputnik4boxee/boxee_thumb.png</thumb>
+		<repositoryid>dk.motnok</repositoryid>
+		<repository>http://motnok.github.com/sputnik4boxee/</repository>
+		<media>video</media>
+		<copyright>Kristoffer Hansen</copyright>
+		<email>kriz@motnok.dk</email>
+		<type>skin</type>
+		<startWindow>14000</startWindow>
+		<platform>win,mac,atv</platform>
+		<minversion>0.9.12</minversion>
+	</app>
+</apps>
+
