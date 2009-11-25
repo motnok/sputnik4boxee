@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <repository>
 	<id>dk.motnok</id>
-	<url>http://motnok.github.com/sputnik4boxee/repo/</url>
+	<url>http://boxee.motnok.dk/repo/</url>
 	<name>Sputnik.dk (unofficial)</name>
-	<thumb>http://motnok,github.com/sputnik4boxee/boxee_thumb.png</thumb>
+	<thumb>http://boxee.motnok.dk/boxee_thumb.png</thumb>
 	<description>Unofficial repository for danish VOD service sputnik.dk</description>
 </repository>
 
