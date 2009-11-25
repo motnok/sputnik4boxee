@@ -1,0 +1,16 @@
+Unofficial boxee app for sputnik.dk VOD service.
+
+# Requirements
+	* Active user account at sputnik.dk
+	* Silverlight capable system (windows, osx, perhaps atv)
+
+# Installation
+Add the repository at: http://motnok.github.com/sputnik4boxee/ to your BOXEE repositories. After that you should see the sputnik app in available applications.
+
+# Known issues
+	* There is currently no log out option
+	* Only programs in series are available. No movies or live channel at the moment
+	* If you try to login, and cancel, you are not asked to login again. To be asked again, delete the registry.xml in you ~Library/Application\ Support/BOXEE/UserData/profiles/user/apps/dk.motnok.sputnik/ folder on os x. On windows, it should be somewhere in "documents and settings".
+
+Other bugs, let me know.
+
