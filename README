@@ -5,7 +5,7 @@ Unofficial boxee app for sputnik.dk VOD service.
 	* Silverlight capable system (windows, osx, perhaps atv)
 
 # Installation
-Add the repository at: http://motnok.github.com/sputnik4boxee/repo/ to your BOXEE repositories. After that you should see the sputnik app in available applications.
+Add the repository at: http://boxee.motnok.dk/repo/ to your BOXEE repositories. After that you should see the sputnik app in available applications.
 
 # Manual installation
 If you dont want to add the repo, you can add the dk.motnok.sputnik folder to your ~/Library/Application\ Support/BOXEE/UserData/apps/ folder. 
@@ -14,7 +14,7 @@ Then add the following to your ~/Library/Application\ Support/BOXEE/UserData/app
 <source>
 	<name>Sputnik</name>
 	<path pathversion="1">app://dk.motnok.sputnik</path>
-	<thumbnail pathversion="1">http://motnok.github.com/sputnik4boxee/boxee_thumb.png</thumbnail>
+	<thumbnail pathversion="1">http://boxee.motnok.dk/boxee_thumb.png</thumbnail>
 	<private>false</private>
 	<adult>false</adult>
 	<country-allow>true</country-allow>
