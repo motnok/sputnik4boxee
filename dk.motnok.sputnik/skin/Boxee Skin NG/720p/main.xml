@@ -1,0 +1,528 @@
+<?xml version="1.0"?>
+<window type="window" id="14000">
+	<defaultcontrol always="true">9000</defaultcontrol>
+	<allowoverlay>no</allowoverlay>
+	<onload lang="python"><![CDATA[
+import os
+import urllib
+import xbmc
+import xbmcgui
+
+def login_sputnik():
+	dialog = xbmcgui.Dialog()
+	dp = xbmcgui.DialogProgress()
+	
+	username = ""
+	password = ""
+		
+	while len(username)==0 or len(password)==0:
+		xbmc.executebuiltin('App.SetString(username,,Indtast sputnik brugernavn)')
+		xbmc.executebuiltin('App.SetString(password,,Indtast sputnik adgangskode,true)')
+		
+		username = xbmc.getInfoLabel('App.String(username)')
+		password = xbmc.getInfoLabel('App.String(password)')
+		
+		try:
+			dp.create( "", "", "" )
+			params = urllib.urlencode({'username': username, 'password': password})
+			socket = urllib.urlopen( "http://sputnik-dyn.tv2.dk/login/validate", params)
+			result = socket.read()
+			socket.close()
+			dp.close()
+			if ( result ):
+				break
+			else:
+				username = ""
+				password = ""
+				if not dialog.yesno('Hovsa...', 'Vi kunne ikke logge dig ind.\nVil du prøve igen?'):
+					break
+							
+		except Exception, e:
+			dp.close()
+			dialog.ok('Error', str(e))
+			
+	return true
+
+username = xbmc.getInfoLabel('App.String(username)')
+password = xbmc.getInfoLabel('App.String(password)')
+if len(username)==0 or len(password)==0:
+	login_sputnik()
+
+]]></onload>
+	<controls>
+		<!-- Header -->
+		<control type="group">
+			<control type="image">
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>1280</width>
+				<height>720</height>
+				<texture>bluecircles_cedeea.jpg</texture>
+			</control>
+			<control type="image">
+				<visible>!Player.HasVideo</visible>
+				<posx>10</posx>
+				<posy>12</posy>
+				<width>200</width>
+				<height>56</height>
+				<texture>sputnik_logo_web_color.png</texture>
+			</control>
+			<control type="image">
+				<visible>Player.HasVideo</visible>
+				<posx>145</posx>
+				<posy>12</posy>
+				<width>200</width>
+				<height>56</height>
+				<texture>sputnik_logo_web_color.png</texture>
+			</control>
+			<control type="label" id="123">
+				<visible>true</visible>
+				<posx>400</posx>
+				<posy>12</posy>
+				<width>200</width>
+				<height>56</height>
+			</control>
+		</control>
+        <control type="group" id="9000">
+			<posx>60</posx>
+			<posy>80</posy>
+			<animation type="Conditional" condition="Window.IsVisible(DialogProgress.xml)">
+				<effect type="fade" start="100" end="20" time="200"/>
+			</animation>
+			<control type="group">
+				<visible>Control.HasFocus(130)</visible>
+				<posy>45</posy>
+				<posx>775</posx>
+				<width>375</width>
+				<height>595</height>
+				<control type="label">
+					<height>50</height>
+					<width>375</width>
+					<font>font23b</font>
+					<info>Container(130).ListItem.Label</info>
+				</control>
+	            <control type="label">
+	            	<posy>50</posy>
+	                <height>504</height>
+	                <width>400</width>
+	                <font>font21sq</font>
+	                <textcolor>white</textcolor>
+	                <selectedcolor>white</selectedcolor>
+	                <wrapmultiline>true</wrapmultiline>
+	                <info>Container(130).ListItem.property(description)</info>
+	            </control>
+			</control>
+			<control type="panel" id="130">
+				<visible>!Control.IsVisible(100)</visible>
+				<posy>45</posy>
+				<width>950</width>
+				<height>595</height>
+				<onup>9001</onup>
+				<ondown>-</ondown>
+				<onleft>-</onleft>
+				<onright>-</onright>
+				<scrolltime>200</scrolltime>
+				<pagecontrol>61</pagecontrol>
+				<focusposition>3</focusposition>
+				<orientation>vertical</orientation>
+				<itemlayout width="200" height="150">
+					<control type="image">
+						<posx>9</posx>
+						<posy>9</posy>
+						<width>141</width>
+						<height>80</height>
+						<texture>shadow.png</texture>
+					</control>	
+					<control type="image">
+						<posx>10</posx>
+						<posy>10</posy>
+						<width>139</width>
+						<height>78</height>
+						<texture>missing.png</texture>
+					</control>			
+					<control type="image">
+						<posx>10</posx>
+						<posy>10</posy>
+						<width>139</width>
+						<height>78</height>
+						<info>ListItem.thumb</info>
+					</control>			
+					<control type="label">
+						<posx>13</posx>
+						<posy>100</posy>
+						<width>150</width>
+						<height>80</height>
+						<font>font16</font>
+						<align>left</align>
+						<aligny>top</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>white</textcolor>
+						<selectedcolor>white</selectedcolor>
+						<wrapmultiline>true</wrapmultiline>
+					</control>
+				</itemlayout>
+				<focusedlayout width="200" height="150">
+					<control type="image">
+						<width>160</width>
+						<height>100</height>
+						<texture>border.png</texture>
+						<animation effect="fade" start="0" end="100" time="300" delay="0" reversable="true">Focus</animation>
+						<animation effect="fade" start="100" end="0" time="300" delay="0" reversable="true">UnFocus</animation>
+					</control>
+					<control type="image">
+						<posx>9</posx>
+						<posy>9</posy>
+						<width>141</width>
+						<height>80</height>
+						<texture>shadow.png</texture>
+					</control>		
+					<control type="image">
+						<posx>10</posx>
+						<posy>10</posy>
+						<width>139</width>
+						<height>78</height>
+						<texture>missing.png</texture>
+					</control>		
+					<control type="image">
+						<posx>10</posx>
+						<posy>10</posy>
+						<width>139</width>
+						<height>78</height>
+						<info>ListItem.thumb</info>
+						<aspectratio>keep</aspectratio>
+					</control>
+					<control type="label">
+						<posx>13</posx>
+						<posy>100</posy>
+						<width>150</width>
+						<height>80</height>
+						<font>font16</font>
+						<align>left</align>
+						<aligny>top</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>white</textcolor>
+						<selectedcolor>white</selectedcolor>
+						<wrapmultiline>true</wrapmultiline>
+					</control>
+					<control type="label">
+						<posx>13</posx>
+						<posy>100</posy>
+						<width>150</width>
+						<height>80</height>
+						<font>font16</font>
+						<align>left</align>
+						<aligny>top</aligny>
+						<label>$INFO[ListItem.Label]</label>
+						<textcolor>white</textcolor>
+						<selectedcolor>white</selectedcolor>
+						<wrapmultiline>true</wrapmultiline>
+						<animation effect="fade" start="0" end="100" time="300" delay="0" reversable="true">Focus</animation>
+						<animation effect="fade" start="100" end="0" time="300" delay="0" reversable="true">UnFocus</animation>
+					</control>
+				</focusedlayout>
+				<content type="url" url="rss://sputnik.tv2.dk/rss.xml">
+                    <onclick lang="python"><![CDATA[
+list = mc.GetWindow(14000).GetList(130)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+browse = mc.GetWindow(14000).GetList(100)
+browse.SetContentURL(listitem.GetPath())
+mc.GetActiveWindow().PushState()
+mc.GetWindow(14000).GetControl(100).SetVisible(True)
+mc.GetWindow(14000).GetControl(100).SetFocus()
+]]></onclick>
+                </content>
+			</control>
+        </control>
+		<control type="group" id="9001">
+			<visible>Player.HasVideo</visible>
+			<posx>0</posx>
+			<posy>0</posy>
+	        <control type="button" id="7000">
+				<width>140</width>
+				<height>80</height>
+				<texturenofocus>shadow.png</texturenofocus>
+				<texturefocus>purple.png</texturefocus>
+				<visible>Player.HasVideo</visible>
+				<onclick>ActivateWindow(FullscreenVideo)</onclick>
+				<ondown>SetFocus(130)</ondown>
+			</control>
+			<control type="videowindow">
+				<visible>Player.HasVideo</visible>
+				<posx>5</posx>
+				<posy>5</posy>
+				<width>130</width>
+				<height>70</height>
+			</control>
+		</control>
+		
+		<control type="group" id="9999">
+			<visible>Control.IsVisible(100)</visible>
+			<control type="image" id="99">
+				<posx>1140</posx>
+				<posy>0</posy>
+				<width>140</width>
+				<height>80</height>
+                <info>Container(130).ListItem.thumb</info>
+			</control>
+            <control type="label" id="98">
+            	<posx>1120</posx>
+                <posy>5</posy>
+                <width>1000</width>
+                <height>60</height>
+                <font>font23b</font>
+                <align>right</align>
+                <textcolor>FFA91467</textcolor>
+                <info>Container(130).ListItem.label</info>
+            </control>
+            <control type="label" id="97">
+            	<posx>1120</posx>
+                <posy>28</posy>
+                <width>900</width>
+                <height>62</height>
+                <font>font18</font>
+                <align>right</align>
+                <textcolor>black</textcolor>
+                <selectedcolor>black</selectedcolor>
+                <wrapmultiline>true</wrapmultiline>
+                <info>Container(130).ListItem.property(description)</info>
+            </control>
+			<control type="group">
+				<posx>60</posx>
+				<posy>80</posy>
+				<animation type="Conditional" condition="Window.IsVisible(DialogProgress.xml)">
+					<effect type="fade" start="100" end="20" time="200"/>
+				</animation>
+				<control type="group">
+					<visible>Control.HasFocus(100)</visible>
+					<posy>45</posy>
+					<posx>775</posx>
+					<width>375</width>
+					<height>595</height>
+					<control type="label">
+						<height>50</height>
+						<width>375</width>
+						<font>font23b</font>
+						<info>Container(100).ListItem.Label</info>
+					</control>
+		            <control type="label">
+		            	<posy>50</posy>
+		                <height>504</height>
+		                <width>400</width>
+		                <font>font21sq</font>
+		                <textcolor>white</textcolor>
+		                <selectedcolor>white</selectedcolor>
+		                <wrapmultiline>true</wrapmultiline>
+		                <info>Container(100).ListItem.property(description)</info>
+		            </control>
+				</control>
+				<control type="panel" id="100">
+					<visible>false</visible>
+					<posy>45</posy>
+					<width>950</width>
+					<height>595</height>
+					<onleft>-</onleft>
+					<onright>-</onright>
+					<onup>7001</onup>
+					<ondown>-</ondown>
+					<scrolltime>200</scrolltime>
+					<pagecontrol>-</pagecontrol>
+					<orientation>vertical</orientation>
+					<itemlayout width="200" height="150">
+						<control type="image">
+							<posx>9</posx>
+							<posy>9</posy>
+							<width>141</width>
+							<height>80</height>>
+							<texture>shadow.png</texture>
+						</control>	
+						<control type="image">
+							<posx>10</posx>
+							<posy>10</posy>
+							<width>139</width>
+							<height>78</height>
+							<texture>missing.png</texture>
+						</control>			
+						<control type="image">
+							<posx>10</posx>
+							<posy>10</posy>
+							<width>139</width>
+							<height>78</height>
+							<info>ListItem.thumb</info>
+						</control>			
+						<control type="label">
+							<posx>13</posx>
+							<posy>100</posy>
+							<width>150</width>
+							<height>80</height>
+							<font>font16</font>
+							<align>left</align>
+							<aligny>top</aligny>
+							<label>$INFO[ListItem.Label]</label>
+							<textcolor>white</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<wrapmultiline>true</wrapmultiline>
+						</control>
+					</itemlayout>
+					<focusedlayout width="200" height="150">
+						<control type="image">
+							<width>160</width>
+							<height>100</height>
+							<texture>border.png</texture>
+							<animation effect="fade" start="0" end="100" time="300" delay="0" reversable="true">Focus</animation>
+							<animation effect="fade" start="100" end="0" time="300" delay="0" reversable="true">UnFocus</animation>
+						</control>
+						<control type="image">
+							<posx>9</posx>
+							<posy>9</posy>
+							<width>141</width>
+							<height>80</height>
+							<texture>shadow.png</texture>
+						</control>	
+						<control type="image">
+							<posx>10</posx>
+							<posy>10</posy>
+							<width>139</width>
+							<height>78</height>
+							<texture>missing.png</texture>
+						</control>		
+						<control type="image">
+							<posx>10</posx>
+							<posy>10</posy>
+							<width>139</width>
+							<height>78</height>
+							<info>ListItem.thumb</info>
+							<aspectratio>keep</aspectratio>
+						</control>
+						<control type="image">
+							<posx>115</posx>
+							<posy>60</posy>
+							<width>32</width>
+							<height>26</height>
+							<texture>play_btn.png</texture>
+							<aspectratio>keep</aspectratio>
+							<animation effect="fade" start="0" end="100" time="300" delay="0" reversable="true">Focus</animation>
+							<animation effect="fade" start="100" end="0" time="300" delay="0" reversable="true">UnFocus</animation>
+						</control>
+						<control type="label">
+							<posx>13</posx>
+							<posy>100</posy>
+							<width>150</width>
+							<height>80</height>
+							<font>font16</font>
+							<align>left</align>
+							<aligny>top</aligny>
+							<label>$INFO[ListItem.Label]</label>
+							<textcolor>white</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<wrapmultiline>true</wrapmultiline>
+						</control>
+						<control type="label">
+							<posx>13</posx>
+							<posy>100</posy>
+							<width>150</width>
+							<height>80</height>
+							<font>font16</font>
+							<align>left</align>
+							<aligny>top</aligny>
+							<label>$INFO[ListItem.Label]</label>
+							<textcolor>white</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<wrapmultiline>true</wrapmultiline>
+							<animation effect="fade" start="0" end="100" time="300" delay="0" reversable="true">Focus</animation>
+							<animation effect="fade" start="100" end="0" time="300" delay="0" reversable="true">UnFocus</animation>
+						</control>
+					</focusedlayout>
+					<content type="url" url="">
+						<onclick lang="python"><![CDATA[
+import os
+import urllib
+import xbmc
+import xbmcgui
+import re
+import simplejson as json
+
+username = xbmc.getInfoLabel('App.String(username)')
+password = xbmc.getInfoLabel('App.String(password)')
+apptoken = xbmc.getInfoLabel('App.String(apptoken)')
+ticket = ""
+dp = xbmcgui.DialogProgress()
+dialog = xbmcgui.Dialog()
+
+list = mc.GetWindow(14000).GetList(100)
+listitems = list.GetItems()
+listitem = listitems[list.GetFocusedItem()]
+path = listitem.GetPath();
+m = re.search('http:\/\/sputnik.*.tv2.dk\/play\/([\d]+)', path)
+if(m.group(1)):
+	programid = m.group(1)
+	
+	try:
+		dp.create( "", "", "" )
+		params = urllib.urlencode({'username': username, 'password': password, 'apptoken': apptoken, 'object': programid})
+		socket = urllib.urlopen( "http://sputnik-dyn.tv2.dk/player/external", params)
+		result = socket.read()
+		socket.close()
+		dp.close()
+		if ( result ):
+			resultObj = json.loads(result);
+			apptoken = resultObj['apptoken'];
+			xbmc.executebuiltin('App.SetString(apptoken,%s)' % apptoken);
+			ticket = resultObj['ticket'];
+			if ( apptoken ):
+				newpath = str('flash://sputnik.dk/src=' + urllib.quote_plus('http://sputnik.tv2.dk/player/boxee/object/' + programid + '?ticket=' + ticket ) + '&bx-ourl=' + urllib.quote_plus(path) + '&bx-jsactions=' + urllib.quote_plus('http://motnok.github.com/sputnik4boxee/controls.js'))
+				listitem.SetPath(newpath)
+				mc.GetPlayer().Play(listitem)
+			else:
+				dialog.ok('For mange maskiner!', 'Du har set sputnik fra for mange maskiner')
+		else:
+			dialog.ok('Ups!', 'Kunne ikke validere')
+	
+	except Exception, e:
+		dialog.ok('Error', str(e))
+		dp.close()
+
+]]></onclick>
+					</content>
+				</control>
+			</control>
+			<control type="group">
+				<visible>Player.HasVideo</visible>
+				<posx>0</posx>
+				<posy>0</posy>
+			    <control type="button" id="7001">
+					<width>140</width>
+					<height>80</height>
+					<texturenofocus>shadow.png</texturenofocus>
+					<texturefocus>purple.png</texturefocus>
+					<visible>Player.HasVideo</visible>
+					<onclick>SetFocus(100)</onclick>
+					<onclick>ActivateWindow(FullscreenVideo)</onclick>
+					<ondown>SetFocus(100)</ondown>
+					<onup>-</onup>
+					<onleft>-</onleft>
+					<onright>-</onright>
+				</control>
+				<control type="videowindow">
+					<visible>Player.HasVideo</visible>
+					<posx>5</posx>
+					<posy>5</posy>
+					<width>130</width>
+					<height>70</height>
+				</control>
+			</control>
+		    <control type="multiimage">
+		        <visible>Container(100).IsLoading</visible>
+		        <posx>500</posx>
+		        <posy>260</posy>
+		        <width>200</width>
+		        <height>200</height>
+		        <imagepath>loading</imagepath>
+		        <timeperimage>100</timeperimage>
+		        <fadetime>1</fadetime>
+		        <loop>yes</loop>
+		        <randomize>false</randomize>
+		    </control>
+		</control>
+	</controls>
+</window>

@@ -1,0 +1,14 @@
+<app>
+  <id>dk.motnok.sputnik</id>
+  <name>Sputnik.dk</name>
+  <version>1.0</version>
+  <description>Sputnik til boxee</description>
+  <thumb>http://motnok.github.com/sputnik4boxee/boxee_thumb.png</thumb>
+  <media>video</media>
+  <copyright>Kristoffer Hansen</copyright>
+  <email>kriz@motnok.dk</email>
+  <type>skin</type>
+  <startWindow>14000</startWindow>
+  <platform>all</platform>
+  <minversion>0.9.12</minversion>
+</app>
