@@ -7,7 +7,7 @@
 		<description>Sputnik VOD service (Unofficial)</description>
 		<thumb>http://motnok.github.com/sputnik4boxee/boxee_thumb.png</thumb>
 		<repositoryid>dk.motnok</repositoryid>
-		<repository>http://motnok.github.com/sputnik4boxee/</repository>
+		<repository>http://motnok.github.com/sputnik4boxee/repo/</repository>
 		<media>video</media>
 		<copyright>Kristoffer Hansen</copyright>
 		<email>kriz@motnok.dk</email>
