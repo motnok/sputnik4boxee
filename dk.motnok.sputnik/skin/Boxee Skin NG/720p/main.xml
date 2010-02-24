@@ -453,7 +453,7 @@ list = mc.GetWindow(14000).GetList(100)
 listitems = list.GetItems()
 listitem = listitems[list.GetFocusedItem()]
 path = listitem.GetPath();
-m = re.search('http:\/\/sputnik.*.tv2.dk\/play\/([\d]+)', path)
+m = re.search('http:\/\/sputnik.*.tv2.dk\/play\/.*-([\d]+)\/$', pa)th)
 if(m.group(1)):
 	programid = m.group(1)
 	
