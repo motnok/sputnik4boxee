@@ -1,7 +1,7 @@
 <app>
   <id>dk.motnok.sputnik</id>
   <name>Sputnik.dk</name>
-  <version>1.0</version>
+  <version>1.0.1</version>
   <description>Sputnik til boxee</description>
   <thumb>http://motnok.github.com/sputnik4boxee/boxee_thumb.png</thumb>
   <media>video</media>
