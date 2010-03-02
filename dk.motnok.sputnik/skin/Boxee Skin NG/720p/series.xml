@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<window type="window" id="14000">
-	<defaultcontrol always="true">9001</defaultcontrol>
+<window type="window" id="14004">
+	<defaultcontrol always="true">9005</defaultcontrol>
 	<allowoverlay>no</allowoverlay>
 	<onload lang="python"><![CDATA[
 from sputnik import *
-mc.GetWindow(14000).GetControl(9001).SetFocus()
-get_popular_programs(1)
+mc.GetWindow(14004).GetControl(9005).SetFocus()
+get_series()
 ]]></onload>
 	<controls>
 		<!-- Background image -->
@@ -38,7 +38,7 @@ get_popular_programs(1)
 		<control type="label" id="120">
 			<posx>1270</posx>
 			<posy>620</posy>
-			<label>Populært</label>
+			<label>Serier</label>
 			<font>font80</font>
 			<textcolor>44FFFFFF</textcolor>
 			<align>right</align>
@@ -229,22 +229,21 @@ login()
 		</control>
 
 		
-		<!-- Index view -->
 		<control type="group" id="1000">
-			<defaultcontrol>1050</defaultcontrol>
+			<defaultcontrol>1060</defaultcontrol>
 			<posx>0</posx>
 			<posy>150</posy>
 			<width>1180</width>
 			<height>660</height>
-			<!-- Default program view -->
-			<control type="panel" id="1050">
+			<!-- search program view -->
+			<control type="panel" id="1060">
 				<posx>20</posx>
 				<posy>0</posy>
 				<width>1240</width>
 				<height>500</height>
 				<onup>9000</onup>
 				<orientation>horizontal</orientation>
-				<itemlayout width="620" height="166">
+				<itemlayout width="620" height="150b">
 					<control type="image">
 						<posx>10</posx>
 						<posy>10</posy>
@@ -264,7 +263,7 @@ login()
 						<posy>0</posy>
 						<width>430</width>
 						<height>30</height>
-						<font>font22</font>
+						<font>font32</font>
 						<align>left</align>
 						<aligny>top</aligny>
 						<label>$INFO[ListItem.Label]</label>
@@ -323,20 +322,12 @@ login()
 						<info>ListItem.thumb</info>
 						<aspectratio>keep</aspectratio>
 					</control>
-					<control type="image">
-						<posx>113</posx>
-						<posy>60</posy>
-						<width>32</width>
-						<height>26</height>
-						<texture>play_btn.png</texture>
-						<animation effect="fade" start="0" end="100" time="300" delay="0" reversable="true">Focus</animation>
-					</control>	
 					<control type="label">
 						<posx>180</posx>
 						<posy>0</posy>
 						<width>430</width>
 						<height>30</height>
-						<font>font22</font>
+						<font>font32</font>
 						<align>left</align>
 						<aligny>top</aligny>
 						<label>$INFO[ListItem.Label]</label>
@@ -370,7 +361,7 @@ login()
 				</focusedlayout>
 				<content type="url" url="">
 					<onclick lang="python"><![CDATA[
-play_current_list_item()
+open_current_series()
 ]]></onclick>
 				</content>
 			</control>

@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
-<window type="window" id="14000">
-	<defaultcontrol always="true">9001</defaultcontrol>
+<window type="window" id="14006">
+	<defaultcontrol always="true">9005</defaultcontrol>
 	<allowoverlay>no</allowoverlay>
 	<onload lang="python"><![CDATA[
 from sputnik import *
-mc.GetWindow(14000).GetControl(9001).SetFocus()
-get_popular_programs(1)
+mc.GetWindow(14006).GetControl(9005).SetFocus()
 ]]></onload>
 	<controls>
 		<!-- Background image -->
@@ -38,7 +37,7 @@ get_popular_programs(1)
 		<control type="label" id="120">
 			<posx>1270</posx>
 			<posy>620</posy>
-			<label>Populært</label>
+			<label>Serier</label>
 			<font>font80</font>
 			<textcolor>44FFFFFF</textcolor>
 			<align>right</align>
@@ -290,7 +289,7 @@ login()
 						<font>font14</font>
 						<align>right</align>
 						<aligny>top</aligny>
-						<label>$INFO[ListItem.TVShowTitle]</label>
+						<label>Episode: $INFO[ListItem.Episode] Sæson: $INFO[ListItem.Season]</label>
 						<textcolor>66FFFFFF</textcolor>
 					</control>
 				</itemlayout>
@@ -363,7 +362,7 @@ login()
 						<font>font14</font>
 						<align>right</align>
 						<aligny>top</aligny>
-						<label>$INFO[ListItem.TVShowTitle]</label>
+						<label>Episode: $INFO[ListItem.Episode] Sæson: $INFO[ListItem.Season]</label>
 						<textcolor>99FFFFFF</textcolor>
 						<wrapmultiline>true</wrapmultiline>
 					</control>

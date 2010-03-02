@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<window type="window" id="14000">
-	<defaultcontrol always="true">9001</defaultcontrol>
+<window type="window" id="14002">
+	<defaultcontrol always="true">9003</defaultcontrol>
 	<allowoverlay>no</allowoverlay>
 	<onload lang="python"><![CDATA[
 from sputnik import *
-mc.GetWindow(14000).GetControl(9001).SetFocus()
-get_popular_programs(1)
+mc.GetWindow(14002).GetControl(9003).SetFocus()
+get_latest_movies(1);
 ]]></onload>
 	<controls>
 		<!-- Background image -->
@@ -38,7 +38,7 @@ get_popular_programs(1)
 		<control type="label" id="120">
 			<posx>1270</posx>
 			<posy>620</posy>
-			<label>Populært</label>
+			<label>Film</label>
 			<font>font80</font>
 			<textcolor>44FFFFFF</textcolor>
 			<align>right</align>
@@ -227,54 +227,45 @@ login()
 				</control>
 			</control>
 		</control>
-
 		
 		<!-- Index view -->
 		<control type="group" id="1000">
-			<defaultcontrol>1050</defaultcontrol>
 			<posx>0</posx>
 			<posy>150</posy>
-			<width>1180</width>
+			<width>1280</width>
 			<height>660</height>
-			<!-- Default program view -->
-			<control type="panel" id="1050">
+			<!-- Movies view -->
+			<control type="wraplist" id="1050">
 				<posx>20</posx>
 				<posy>0</posy>
-				<width>1240</width>
+				<width>1260</width>
 				<height>500</height>
 				<onup>9000</onup>
 				<orientation>horizontal</orientation>
-				<itemlayout width="620" height="166">
+				<itemlayout width="1140" height="500">		
 					<control type="image">
-						<posx>10</posx>
-						<posy>10</posy>
-						<width>139</width>
-						<height>78</height>
-						<texture>missing.png</texture>
-					</control>			
-					<control type="image">
-						<posx>10</posx>
-						<posy>10</posy>
-						<width>139</width>
-						<height>78</height>
-						<info>ListItem.thumb</info>
+						<posx>0</posx>
+						<posy>0</posy>
+						<width>320</width>
+						<height>460</height>
+						<texture diffuse="movie_diffuse.png">$INFO[ListItem.thumb]</texture>
 					</control>			
 					<control type="label">
-						<posx>180</posx>
+						<posx>340</posx>
 						<posy>0</posy>
-						<width>430</width>
-						<height>30</height>
-						<font>font22</font>
+						<width>700</width>
+						<height>50</height>
+						<font>font26</font>
 						<align>left</align>
 						<aligny>top</aligny>
 						<label>$INFO[ListItem.Label]</label>
 						<textcolor>66FFFFFF</textcolor>
 					</control>
 					<control type="label">
-						<posx>180</posx>
+						<posx>340</posx>
 						<posy>45</posy>
-						<width>430</width>
-						<height>50</height>
+						<width>700</width>
+						<height>400</height>
 						<font>font18</font>
 						<align>left</align>
 						<aligny>top</aligny>
@@ -282,89 +273,36 @@ login()
 						<textcolor>33FFFFFF</textcolor>
 						<wrapmultiline>true</wrapmultiline>
 					</control>
-					<control type="label">
-						<posx>600</posx>
-						<posy>24</posy>
-						<width>430</width>
-						<height>85</height>
-						<font>font14</font>
-						<align>right</align>
-						<aligny>top</aligny>
-						<label>$INFO[ListItem.TVShowTitle]</label>
-						<textcolor>66FFFFFF</textcolor>
-					</control>
 				</itemlayout>
-				<focusedlayout width="620" height="166">
+				<focusedlayout width="1140" height="500">			
 					<control type="image">
-						<width>160</width>
-						<height>100</height>
-						<texture>border.png</texture>
-						<animation effect="fade" start="0" end="100" time="300" delay="0" reversable="true">Focus</animation>
-					</control>
-					<control type="image">
-						<posx>9</posx>
-						<posy>9</posy>
-						<width>141</width>
-						<height>80</height>
-						<texture>shadow.png</texture>
-					</control>		
-					<control type="image">
-						<posx>10</posx>
-						<posy>10</posy>
-						<width>139</width>
-						<height>78</height>
-						<texture>missing.png</texture>
-					</control>		
-					<control type="image">
-						<posx>10</posx>
-						<posy>10</posy>
-						<width>139</width>
-						<height>78</height>
-						<info>ListItem.thumb</info>
-						<aspectratio>keep</aspectratio>
-					</control>
-					<control type="image">
-						<posx>113</posx>
-						<posy>60</posy>
-						<width>32</width>
-						<height>26</height>
-						<texture>play_btn.png</texture>
-						<animation effect="fade" start="0" end="100" time="300" delay="0" reversable="true">Focus</animation>
-					</control>	
-					<control type="label">
-						<posx>180</posx>
+						<posx>0</posx>
 						<posy>0</posy>
-						<width>430</width>
-						<height>30</height>
-						<font>font22</font>
+						<width>320</width>
+						<height>460</height>
+						<texture>$INFO[ListItem.thumb]</texture>
+					</control>			
+					<control type="label">
+						<posx>340</posx>
+						<posy>0</posy>
+						<width>700</width>
+						<height>50</height>
+						<font>font26</font>
 						<align>left</align>
 						<aligny>top</aligny>
 						<label>$INFO[ListItem.Label]</label>
 						<textcolor>FFFFFFFF</textcolor>
-						<scroll>true</scroll>
 					</control>
 					<control type="label">
-						<posx>180</posx>
+						<posx>340</posx>
 						<posy>45</posy>
-						<width>430</width>
-						<height>100</height>
+						<width>700</width>
+						<height>400</height>
 						<font>font18</font>
 						<align>left</align>
 						<aligny>top</aligny>
 						<info>ListItem.property(description)</info>
 						<textcolor>FFFFFFFF</textcolor>
-						<wrapmultiline>true</wrapmultiline>
-					</control>
-					<control type="label">
-						<posx>600</posx>
-						<posy>24</posy>
-						<width>430</width>
-						<height>20</height>
-						<font>font14</font>
-						<align>right</align>
-						<aligny>top</aligny>
-						<label>$INFO[ListItem.TVShowTitle]</label>
-						<textcolor>99FFFFFF</textcolor>
 						<wrapmultiline>true</wrapmultiline>
 					</control>
 				</focusedlayout>
@@ -378,7 +316,7 @@ play_current_list_item()
 	<include>BrowseQueueViewInfo</include>
 	<include>BrowseLoadingAnimation</include>
 	<control type="group" id="6001">
-		<include>Common_Now_Playing</include>
+			<include>Common_Now_Playing</include>
 	</control>
 	</controls>
 </window>

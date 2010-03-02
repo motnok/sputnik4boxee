@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<window type="window" id="14000">
-	<defaultcontrol always="true">9001</defaultcontrol>
+<window type="window" id="14003">
+	<defaultcontrol always="true">9004</defaultcontrol>
 	<allowoverlay>no</allowoverlay>
 	<onload lang="python"><![CDATA[
 from sputnik import *
-mc.GetWindow(14000).GetControl(9001).SetFocus()
-get_popular_programs(1)
+mc.GetWindow(14003).GetControl(9004).SetFocus()
+get_sneakpreviews()
 ]]></onload>
 	<controls>
 		<!-- Background image -->
@@ -38,7 +38,7 @@ get_popular_programs(1)
 		<control type="label" id="120">
 			<posx>1270</posx>
 			<posy>620</posy>
-			<label>Populært</label>
+			<label>Snigpræmierer</label>
 			<font>font80</font>
 			<textcolor>44FFFFFF</textcolor>
 			<align>right</align>
