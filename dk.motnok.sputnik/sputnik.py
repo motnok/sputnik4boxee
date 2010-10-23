@@ -207,7 +207,14 @@ def is_logged_in():
 def login():
 	dialog = xbmcgui.Dialog()
 	dp = xbmcgui.DialogProgress()
+
+	username = xbmc.getInfoLabel('App.String(username)')
+	password = xbmc.getInfoLabel('App.String(password)')
 	
+	if(len(username)>0):
+		if not dialog.yesno('Ændre login', 'Vil du ændre nuværende login?'):
+			return
+		
 	username = ""
 	password = ""
 		
@@ -220,24 +227,22 @@ def login():
 		
 		try:
 			dp.create( "", "", "" )
-			params = urllib.urlencode({'username': username, 'password': password})
-			socket = urllib.urlopen( "http://sputnik-dyn.tv2.dk/login/validate", params)
-			result = socket.read()
-			socket.close()
-			dp.close()
+			http = mc.Http()
+			params = "username="+username+"&password="+password
+			result = http.Post('http://ajax.tv2.dk/login/user/login/', params)
 			if ( result ):
-				break
-			else:
-				username = ""
-				password = ""
-				if not dialog.yesno('Login fejlet', 'Vi kunne ikke logge dig ind - Vil du prøve igen?'):
+				resultObj = json.loads(result);
+				if(resultObj['success']):
+					dialog.ok('Sådan!', 'Du er nu logget ind!');
 					break
+			username = ""
+			password = ""
+			if not dialog.yesno('Login fejlet', 'Vi kunne ikke logge dig ind - Vil du prøve igen?'):
+				break
 							
 		except Exception, e:
 			dp.close()
 			dialog.ok('Error', str(e))
-
-	dialog.ok('Sådan!', 'Du er nu logget ind!')
 
 def play_program(listitem):
 	username = xbmc.getInfoLabel('App.String(username)')
