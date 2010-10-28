@@ -197,11 +197,15 @@ def get_background(url):
 def get_path_from_program(program):
 	return 'http://sputnik.tv2.dk/play/'+str(program['id'])+'/'
 
-def is_logged_in():
-	username = xbmc.getInfoLabel('App.String(username)')
-	password = xbmc.getInfoLabel('App.String(password)')
+def login_user(username, password):
+	http = mc.Http()
 	if(len(username)>0 and len(password)>0):
-		return True
+		params = "username="+username+"&password="+password
+		result = http.Post('http://ajax.tv2.dk/login/user/login/', params)
+		if ( result ):
+			resultObj = json.loads(result);
+			if(resultObj['success']):
+				return True
 	return False
 	
 def login():
@@ -227,14 +231,10 @@ def login():
 		
 		try:
 			dp.create( "", "", "" )
-			http = mc.Http()
-			params = "username="+username+"&password="+password
-			result = http.Post('http://ajax.tv2.dk/login/user/login/', params)
-			if ( result ):
-				resultObj = json.loads(result);
-				if(resultObj['success']):
-					dialog.ok('Sådan!', 'Du er nu logget ind!');
-					break
+			if(login_user(username, password)):
+				dialog.ok('Sådan!', 'Du er nu logget ind!');
+				break
+
 			username = ""
 			password = ""
 			if not dialog.yesno('Login fejlet', 'Vi kunne ikke logge dig ind - Vil du prøve igen?'):
@@ -245,38 +245,26 @@ def login():
 			dialog.ok('Error', str(e))
 
 def play_program(listitem):
-	username = xbmc.getInfoLabel('App.String(username)')
-	password = xbmc.getInfoLabel('App.String(password)')
-	apptoken = xbmc.getInfoLabel('App.String(apptoken)')
 	programid = listitem.GetProperty("id")
-	ticket = ""
+	type = "program" #TODO: Broadcasts
 	dp = xbmcgui.DialogProgress()
 	dialog = xbmcgui.Dialog()
 
 	path = listitem.GetPath();
 		
+	username = xbmc.getInfoLabel('App.String(username)')
+	password = xbmc.getInfoLabel('App.String(password)')
+		
 	try:
-		dp.create( "", "", "" )
-		params = urllib.urlencode({'username': username, 'password': password, 'apptoken': apptoken, 'object': programid})
-		socket = urllib2.urlopen( "http://sputnik-dyn.tv2.dk/player/external", params)
-		result = socket.read()
-		socket.close()
-		dp.close()
-		if ( result ):
-			resultObj = json.loads(result);
-			apptoken = resultObj['apptoken'];
-			xbmc.executebuiltin('App.SetString(apptoken,%s)' % apptoken);
-			ticket = resultObj['ticket'];
-			if ( apptoken ):
-				newpath = str('flash://sputnik.dk/src=' + urllib.quote_plus('http://sputnik.tv2.dk/player/boxee/object/' + programid + '?ticket=' + ticket ) + '&bx-ourl=' + urllib.quote_plus(path) + '&bx-jsactions=' + urllib.quote_plus('http://motnok.github.com/sputnik4boxee/controls.js'))
-				listitem.SetPath(newpath)
-				mc.GetPlayer().Play(listitem)
-				listitem.SetPath(path)
-			else:
-				dialog.ok('For mange maskiner!', 'Du har set sputnik fra for mange maskiner')
-		else:
-			dialog.ok('Ups!', 'Kunne ikke validere')
-	
+		if not (login_user(username, password)):
+			raise Exception("Kunne ikke logge dig ind!");
+		if not (login_user(username, password)):
+			raise Exception("Kunne ikke logge dig ind!");
+		newpath = str('flash://sputnik.dk/src=' + urllib.quote_plus("http://sputnik-dyn.tv2.dk/player/simple/id/"+programid+"/type/"+type+"/") + '&bx-ourl=' + urllib.quote_plus(path) + '&bx-jsactions=' + urllib.quote_plus('http://dl.dropbox.com/u/93155/controls.js'))
+		listitem.SetPath(newpath)
+		mc.GetPlayer().Play(listitem)
+		listitem.SetPath(path)
+			
 	except Exception, e:
 		dialog.ok('Error', str(e))
 		dp.close()
