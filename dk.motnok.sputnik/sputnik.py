@@ -81,8 +81,8 @@ def get_search(term):
 	mc.ShowDialogWait()
 	set_items(mc.ListItems())
 	set_series(mc.ListItems())
-
-	socket = urllib2.urlopen("http://r7.tv2.dk/api/sputnik/search.json?query=" + term)
+		
+	socket = urllib2.urlopen("http://r7.tv2.dk/api/sputnik/search.json?query=" + urllib.quote(term))
 	result = socket.read()
 	socket.close()
 	if ( result ):
@@ -214,7 +214,7 @@ def login():
 
 	username = xbmc.getInfoLabel('App.String(username)')
 	password = xbmc.getInfoLabel('App.String(password)')
-	
+		
 	if(len(username)>0):
 		if not dialog.yesno('Ændre login', 'Vil du ændre nuværende login?'):
 			return
