@@ -1,12 +1,12 @@
 <app>
-  <id>dk.motnok.sputnik</id>
+  <id>dk.tv2.sputnik</id>
   <name>Sputnik.dk</name>
   <version>2.1</version>
   <description>Sputnik til boxee</description>
   <thumb>http://dl.dropbox.com/u/93155/boxee/boxee_thumb.png</thumb>
   <media>video</media>
-  <copyright>Kristoffer Hansen</copyright>
-  <email>kriz@motnok.dk</email>
+  <copyright>TV 2 Danmark A/S</copyright>
+  <email>krha@tv2.dk</email>
   <type>skin</type>
   <startWindow>14000</startWindow>
   <platform>all</platform>
