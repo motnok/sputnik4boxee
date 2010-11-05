@@ -1,4 +1,4 @@
-Unofficial boxee app for sputnik.dk VOD service.
+Almost official boxee app for sputnik.dk VOD service.
 
 ## Requirements
 * Active user account at http://sputnik.dk
@@ -9,15 +9,20 @@ Unofficial boxee app for sputnik.dk VOD service.
 * Search content
 * Watch movies - only if you have bought them online
 * Browse series
+* Browse categories
+* Watch live TV
 
 ## Installation
-Add the repository at: http://boxee.motnok.dk/repo/ to your BOXEE repositories. After that you should see the sputnik app in available applications.
+The app will be submitted to the official Boxee app directory
 
-## Upcomming features
-* Live TV
+## TODO's
+* Player controls. Play, pause, scrob etc.
+* Better categori view
 * Bugfixes
+* Code cleanup
 
 ## Known issues
-* I had some problems not being able to it to my applications. I solved it removing the repository and adding it again.
+* I have seen problems with playing content that is DRM/playready protected
+* Back / esc command needs some better logic to get to the correct state
 
 Other bugs or requests, let me know at http://github.com/motnok/sputnik4boxee/issues or http://twitter.com/motnok
