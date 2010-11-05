@@ -4,13 +4,11 @@
 	<allowoverlay>no</allowoverlay>
 	<onload lang="python"><![CDATA[
 from sputnik import *
-mc.GetWindow(14000).GetControl(9001).SetFocus()
-get_popular_programs(1)
+set_action("popular");
 ]]></onload>
 	<controls>
-		<!-- Background image -->
+<!-- Background image -->
 		<control type="largeimage" id="100">
-		   <description>My first largeimage control</description>
 		   <posx>0</posx>
 		   <posy>0</posy>
 		   <width>1280</width>
@@ -23,362 +21,361 @@ get_popular_programs(1)
 		</control>
 		<!-- Navigation -->
 		<control type="group">
-			<posx>-1020</posx>
-			<posy>660</posy>
 			<include>Common_Status</include>
 		</control>
-		<!-- Logo -->
-		<control type="image" id="110">
-			<posx>0</posx>
-			<posy>5</posy>
-			<width>200</width>
-			<height>56</height>
-			<texture>sputnik_logo_web_color.png</texture>
-		</control>
+		
 		<control type="label" id="120">
 			<posx>1270</posx>
 			<posy>620</posy>
-			<label>Populært</label>
+			<label></label>
 			<font>font80</font>
-			<textcolor>44FFFFFF</textcolor>
+			<textcolor>22FFFFFF</textcolor>
 			<align>right</align>
 		</control>
-		<!-- navigation buttons -->
-		<control type="grouplist" id="9000">
+		
+	<!-- Program view -->
+	<control type="group" id="1000">
+		<defaultcontrol>1150</defaultcontrol>
+		<posx>0</posx>
+		<posy>0</posy>
+		<width>1280</width>
+		<height>720</height>
+		<!-- Default program view -->
+		<control type="fixedlist" id="1150">
 			<posx>0</posx>
-			<posy>66</posy>
+			<posy>0</posy>
 			<width>1280</width>
-			<height>58</height>
+			<height>720</height>
+			<onleft>9000</onleft>
+			<orientation>vertical</orientation>
+			<itemlayout width="930" height="30">	
+				<control type="label">
+					<posx>25</posx>
+					<posy>30</posy>
+					<width>930</width>
+					<height>30</height>
+					<font>font22</font>
+					<align>left</align>
+					<aligny>top</aligny>
+					<label>$INFO[ListItem.TVShowTitle,, - ]$INFO[ListItem.Label]</label>
+					<textcolor>66FFFFFF</textcolor>
+					<shadowcolor>33000000</shadowcolor>
+				</control>
+			</itemlayout>
+			<focusedlayout width="930" height="80">
+				<control type="label">
+					<posx>25</posx>
+					<posy>50</posy>
+					<width>1265</width>
+					<height>70</height>
+					<font>font48b</font>
+					<align>left</align>
+					<aligny>top</aligny>
+					<label>$INFO[ListItem.TVShowTitle,, - ]$INFO[ListItem.Label]</label>
+					<scroll>true</scroll>
+					<textcolor>FFFFFFFF</textcolor>
+					<shadowcolor>66000000</shadowcolor>
+				</control>
+				<control type="label">
+					<posx>800</posx>
+					<posy>110</posy>
+					<width>440</width>
+					<height>250</height>
+					<font>font18</font>
+					<align>left</align>
+					<aligny>top</aligny>
+					<info>ListItem.property(description)</info>
+					<scroll>true</scroll>
+					<wrapmultiline>true</wrapmultiline>
+					<textcolor>FFFFFFFF</textcolor>
+					<shadowcolor>66000000</shadowcolor>
+				</control>
+				<control type="image">
+					<posx>900</posx>
+					<posy>370</posy>
+					<width>300</width>
+					<height>300</height>
+					<texture>$INFO[ListItem.Thumb]</texture>
+					<aspectratio align="top">keep</aspectratio>
+				</control>
+			</focusedlayout>
+			<content type="url" url="">
+				<onclick lang="python"><![CDATA[
+handle_listitem_select()
+]]></onclick>
+			</content>
+		</control>
+	</control>
+		
+		<!-- navigation buttons -->
+		<control type="group" id="9000">
+			<posx>-305</posx>
+			<posy>0</posy>
+			<width>300</width>
+			<height>720</height>
+			<animation effect="slide" end="305,0" time="200" tween="circle">Focus</animation>
+			<animation effect="slide" start="305,0" time="150" tween="back">Unfocus</animation>
+
+			<!-- Menu background -->
+			<control type="image" id="110">				
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>340</width>
+				<height>720</height>
+				<texture>menu.png</texture>
+			</control>
+		
+		<control type="grouplist" id="9100">
+			<posx>35</posx>
+			<posy>70</posy>
+			<width>300</width>
+			<height>720</height>
 			<itemgap>0</itemgap>
-			<ondown>1000</ondown>
+			<onright>1000</onright>
 			<onup>6001</onup>
-			<onright>-</onright>
-			<orientation>horizontal</orientation>
+			<orientation>vertical</orientation>
 			<usecontrolcoords>false</usecontrolcoords>
 			<onright>SetFocus(6000)</onright>
 			<onup>SetFocus(6000)</onup>
 			<ondown>9001</ondown>
 			<control type="group">
-				<width>132</width>
-				<height>58</height>
-				<visible>Control.IsVisible(9001)</visible>
-				<control type="button" id="9001">
-					<width>142</width>
+				<width>340</width>
+				<height>165</height>
+				<visible>Player.HasVideo</visible>
+				<control type="videowindow">
+					<width>250</width>
+					<height>100</height>
+				</control>
+				<control type="button" id="9050">
+					<posy>110</posy>
+					<width>340</width>
 					<height>58</height>
 					<onleft>-</onleft>
-					<onright>9002</onright>
-					<onup>6001</onup>
-					<ondown>1000</ondown>
-					<label>Populært</label>
+					<onright>1000</onright>
+					<onup>-</onup>
+					<ondown>9001</ondown>
+					<label>Afspiller nu...</label>
 					<textcolor>33000000</textcolor>
 					<focusedcolor>FFA91467</focusedcolor>
 					<texturenofocus>-</texturenofocus>
 					<texturefocus>-</texturefocus>
-					<font>font21</font>
-					<align>center</align>
+					<font>font28</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<onclick>ActivateWindow(FullscreenVideo)</onclick>
+				</control>
+			</control>
+			<control type="group">
+				<width>340</width>
+				<height>58</height>
+				<visible>Control.IsVisible(9001)</visible>
+				<control type="button" id="9001">
+					<width>340</width>
+					<height>58</height>
+					<onleft>-</onleft>
+					<onright>1000</onright>
+					<onup>9050</onup>
+					<ondown>9002</ondown>
+					<label>PopulÃ¦rt</label>
+					<textcolor>33000000</textcolor>
+					<focusedcolor>FFA91467</focusedcolor>
+					<texturenofocus>-</texturenofocus>
+					<texturefocus>-</texturefocus>
+					<font>font28</font>
+					<align>left</align>
 					<aligny>center</aligny>
 					<onclick lang="python"><![CDATA[
-show_main_window()
+mc.GetActiveWindow().GetList(1150).SetFocus();
+set_action("popular");
 ]]></onclick>
 				</control>
 			</control>
 			<control type="group">
-				<width>156</width>
+				<width>340</width>
 				<height>58</height>
 				<visible>Control.IsVisible(9002)</visible>
 				<control type="button" id="9002">
-					<width>166</width>
+					<width>340</width>
 					<height>58</height>
-					<onleft>9001</onleft>
-					<onright>9003</onright>
-					<onup>6001</onup>
-					<ondown>1000</ondown>
+					<onleft>-</onleft>
+					<onright>1000</onright>
+					<onup>9001</onup>
+					<ondown>9003</ondown>
 					<label>Seneste</label>
 					<textcolor>33000000</textcolor>
 					<focusedcolor>FFA91467</focusedcolor>
 					<texturenofocus>-</texturenofocus>
 					<texturefocus>y-button-on.png</texturefocus>
-					<font>font21</font>
-					<align>center</align>
+					<font>font28</font>
+					<align>left</align>
 					<aligny>center</aligny>
 					<onclick lang="python"><![CDATA[
-show_latest_window()
+mc.GetActiveWindow().GetList(1150).SetFocus();
+set_action("latest");
 ]]></onclick>
 				</control>
 			</control>
 			<control type="group">
-				<width>132</width>
+				<width>340</width>
 				<height>58</height>
 				<visible>Control.IsVisible(9003)</visible>
 				<control type="button" id="9003">
 					<width>142</width>
 					<height>58</height>
-					<onleft>9002</onleft>
-					<onright>9004</onright>
-					<onup>6001</onup>
-					<ondown>1000</ondown>
-					<label>Film</label>
+					<onleft>-</onleft>
+					<onright>1000</onright>
+					<onup>9002</onup>
+					<ondown>9004</ondown>
+					<label>Kategorier</label>
 					<textcolor>33000000</textcolor>
 					<focusedcolor>FFA91467</focusedcolor>
 					<texturenofocus>-</texturenofocus>
 					<texturefocus>y-button-sm-on.png</texturefocus>
-					<font>font21</font>
-					<align>center</align>
+					<font>font28</font>
+					<align>left</align>
 					<aligny>center</aligny>
 					<onclick lang="python"><![CDATA[
-show_movie_window()
+mc.GetActiveWindow().GetList(1150).SetFocus();
+set_action("category");
 ]]></onclick>
 				</control>
 			</control>
 			<control type="group">
-				<width>192</width>
+				<width>340</width>
 				<height>58</height>
 				<visible>Control.IsVisible(9004)</visible>
 				<control type="button" id="9004">
-					<width>202</width>
+					<width>340</width>
 					<height>58</height>
-					<onleft>9003</onleft>
-					<onright>9005</onright>
-					<onup>6001</onup>
-					<ondown>1000</ondown>
-					<label>Snigpræmierer</label>
+					<onleft>-</onleft>
+					<onright>1000</onright>
+					<onup>9003</onup>
+					<ondown>9005</ondown>
+					<label>SnigprÃ¦mierer</label>
 					<textcolor>33000000</textcolor>
 					<focusedcolor>FFA91467</focusedcolor>
 					<texturenofocus>-</texturenofocus>
 					<texturefocus>y-button-sm-on.png</texturefocus>
-					<font>font21</font>
-					<align>center</align>
+					<font>font28</font>
+					<align>left</align>
 					<aligny>center</aligny>
 					<onclick lang="python"><![CDATA[
-show_preview_window()
+mc.GetActiveWindow().GetList(1150).SetFocus();
+set_action("previews");
 ]]></onclick>
 				</control>
 			</control>
 			<control type="group">
-				<width>82</width>
+				<width>340</width>
 				<height>58</height>
 				<visible>Control.IsVisible(9005)</visible>
 				<control type="button" id="9005">
-					<width>92</width>
+					<width>340</width>
 					<height>58</height>
-					<onleft>9004</onleft>
-					<onright>9006</onright>
-					<onup>6001</onup>
-					<ondown>1000</ondown>
+					<onleft>-</onleft>
+					<onright>1000</onright>
+					<onup>9004</onup>
+					<ondown>9006</ondown>
 					<label>Serier</label>
 					<textcolor>33000000</textcolor>
 					<focusedcolor>FFA91467</focusedcolor>
 					<texturenofocus>-</texturenofocus>
 					<texturefocus>y-button-xsm-on.png</texturefocus>
-					<font>font21</font>
-					<align>center</align>
+					<font>font28</font>
+					<align>left</align>
 					<aligny>center</aligny>
 					<onclick lang="python"><![CDATA[
-show_series_window()
+mc.GetActiveWindow().GetList(1150).SetFocus();
+set_action("series");
 ]]></onclick>
 				</control>
 			</control>
 			<control type="group">
-				<width>112</width>
+				<width>340</width>
 				<height>58</height>
 				<visible>Control.IsVisible(9006)</visible>
 				<control type="button" id="9006">
-					<width>122</width>
+					<width>340</width>
 					<height>58</height>
-					<onleft>9005</onleft>
-					<onright>9007</onright>
-					<onup>6001</onup>
-					<ondown>1000</ondown>
-					<label>Søg</label>
+					<onleft>-</onleft>
+					<onright>1000</onright>
+					<onup>9005</onup>
+					<ondown>9007</ondown>
+					<label>Live TV</label>
 					<textcolor>33000000</textcolor>
 					<focusedcolor>FFA91467</focusedcolor>
 					<texturenofocus>-</texturenofocus>
 					<texturefocus>y-button-xsm-on.png</texturefocus>
-					<font>font21</font>
-					<align>center</align>
+					<font>font28</font>
+					<align>left</align>
 					<aligny>center</aligny>
-					<onclick>App.PushFrontString(search,$INFO[App.String(search)],10,Søg på sputnik)</onclick>
 					<onclick lang="python"><![CDATA[
-show_search_window()
+mc.GetActiveWindow().GetList(1150).SetFocus();
+set_action("broadcast");
 ]]></onclick>
 				</control>
 			</control>
 			<control type="group">
-				<width>112</width>
+				<width>340</width>
 				<height>58</height>
+				<visible>Control.IsVisible(9007)</visible>
 				<control type="button" id="9007">
-					<width>122</width>
+					<width>340</width>
 					<height>58</height>
-					<onleft>9006</onleft>
-					<onright>6001</onright>
-					<onup>6001</onup>
-					<ondown>1000</ondown>
+					<onleft>-</onleft>
+					<onright>1000</onright>
+					<onup>9006</onup>
+					<ondown>9008</ondown>
+					<label>SÃ¸g</label>
+					<textcolor>33000000</textcolor>
+					<focusedcolor>FFA91467</focusedcolor>
+					<texturenofocus>-</texturenofocus>
+					<texturefocus>y-button-xsm-on.png</texturefocus>
+					<font>font28</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<onclick>App.PushFrontString(search,$INFO[App.String(search)],10,SÃ¸g pÃ¥ sputnik)</onclick>
+					<onclick lang="python"><![CDATA[
+set_action("search");
+]]></onclick>
+				</control>
+			</control>
+			<control type="group">
+				<width>340</width>
+				<height>58</height>
+				<control type="button" id="9008">
+					<width>340</width>
+					<height>58</height>
+					<onleft>-</onleft>
+					<onright>-</onright>
+					<onup>9007</onup>
+					<ondown>-</ondown>
 					<label>Login</label>
 					<textcolor>33000000</textcolor>
 					<focusedcolor>FFA91467</focusedcolor>
 					<texturenofocus>-</texturenofocus>
 					<texturefocus>y-button-xsm-on.png</texturefocus>
-					<font>font21</font>
-					<align>center</align>
+					<font>font28</font>
+					<align>left</align>
 					<aligny>center</aligny>
 					<onclick lang="python"><![CDATA[
-login()
+set_action("login");
 ]]></onclick>
 				</control>
 			</control>
 		</control>
-
+	</control>
 		
-		<!-- Index view -->
-		<control type="group" id="1000">
-			<defaultcontrol>1050</defaultcontrol>
-			<posx>0</posx>
-			<posy>150</posy>
-			<width>1180</width>
-			<height>660</height>
-			<!-- Default program view -->
-			<control type="panel" id="1050">
-				<posx>20</posx>
-				<posy>0</posy>
-				<width>1240</width>
-				<height>500</height>
-				<onup>9000</onup>
-				<orientation>horizontal</orientation>
-				<itemlayout width="620" height="166">
-					<control type="image">
-						<posx>10</posx>
-						<posy>10</posy>
-						<width>139</width>
-						<height>78</height>
-						<texture>missing.png</texture>
-					</control>			
-					<control type="image">
-						<posx>10</posx>
-						<posy>10</posy>
-						<width>139</width>
-						<height>78</height>
-						<info>ListItem.thumb</info>
-					</control>			
-					<control type="label">
-						<posx>180</posx>
-						<posy>0</posy>
-						<width>430</width>
-						<height>30</height>
-						<font>font22</font>
-						<align>left</align>
-						<aligny>top</aligny>
-						<label>$INFO[ListItem.Label]</label>
-						<textcolor>66FFFFFF</textcolor>
-					</control>
-					<control type="label">
-						<posx>180</posx>
-						<posy>45</posy>
-						<width>430</width>
-						<height>50</height>
-						<font>font18</font>
-						<align>left</align>
-						<aligny>top</aligny>
-						<info>ListItem.property(description)</info>
-						<textcolor>33FFFFFF</textcolor>
-						<wrapmultiline>true</wrapmultiline>
-					</control>
-					<control type="label">
-						<posx>600</posx>
-						<posy>24</posy>
-						<width>430</width>
-						<height>85</height>
-						<font>font14</font>
-						<align>right</align>
-						<aligny>top</aligny>
-						<label>$INFO[ListItem.TVShowTitle]</label>
-						<textcolor>66FFFFFF</textcolor>
-					</control>
-				</itemlayout>
-				<focusedlayout width="620" height="166">
-					<control type="image">
-						<width>160</width>
-						<height>100</height>
-						<texture>border.png</texture>
-						<animation effect="fade" start="0" end="100" time="300" delay="0" reversable="true">Focus</animation>
-					</control>
-					<control type="image">
-						<posx>9</posx>
-						<posy>9</posy>
-						<width>141</width>
-						<height>80</height>
-						<texture>shadow.png</texture>
-					</control>		
-					<control type="image">
-						<posx>10</posx>
-						<posy>10</posy>
-						<width>139</width>
-						<height>78</height>
-						<texture>missing.png</texture>
-					</control>		
-					<control type="image">
-						<posx>10</posx>
-						<posy>10</posy>
-						<width>139</width>
-						<height>78</height>
-						<info>ListItem.thumb</info>
-						<aspectratio>keep</aspectratio>
-					</control>
-					<control type="image">
-						<posx>113</posx>
-						<posy>60</posy>
-						<width>32</width>
-						<height>26</height>
-						<texture>play_btn.png</texture>
-						<animation effect="fade" start="0" end="100" time="300" delay="0" reversable="true">Focus</animation>
-					</control>	
-					<control type="label">
-						<posx>180</posx>
-						<posy>0</posy>
-						<width>430</width>
-						<height>30</height>
-						<font>font22</font>
-						<align>left</align>
-						<aligny>top</aligny>
-						<label>$INFO[ListItem.Label]</label>
-						<textcolor>FFFFFFFF</textcolor>
-						<scroll>true</scroll>
-					</control>
-					<control type="label">
-						<posx>180</posx>
-						<posy>45</posy>
-						<width>430</width>
-						<height>100</height>
-						<font>font18</font>
-						<align>left</align>
-						<aligny>top</aligny>
-						<info>ListItem.property(description)</info>
-						<textcolor>FFFFFFFF</textcolor>
-						<wrapmultiline>true</wrapmultiline>
-					</control>
-					<control type="label">
-						<posx>600</posx>
-						<posy>24</posy>
-						<width>430</width>
-						<height>20</height>
-						<font>font14</font>
-						<align>right</align>
-						<aligny>top</aligny>
-						<label>$INFO[ListItem.TVShowTitle]</label>
-						<textcolor>99FFFFFF</textcolor>
-						<wrapmultiline>true</wrapmultiline>
-					</control>
-				</focusedlayout>
-				<content type="url" url="">
-					<onclick lang="python"><![CDATA[
-play_current_list_item()
-]]></onclick>
-				</content>
-			</control>
-		</control>
+	<!-- Logo -->
+	<control type="image" id="110">
+		<posx>0</posx>
+		<posy>5</posy>
+		<width>200</width>
+		<height>56</height>
+		<texture>sputnik_logo_web_color.png</texture>
+	</control>
+		
 	<include>BrowseQueueViewInfo</include>
 	<include>BrowseLoadingAnimation</include>
-	<control type="group" id="6001">
-		<include>Common_Now_Playing</include>
-	</control>
 	</controls>
 </window>
