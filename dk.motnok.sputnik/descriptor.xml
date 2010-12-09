@@ -1,5 +1,5 @@
 <app>
-  <id>dk.motnok.sputnik.dev</id>
+  <id>dk.motnok.sputnik</id>
   <name>Sputnik.dk</name>
   <version>2.1</version>
   <description>Sputnik til boxee</description>
@@ -11,5 +11,4 @@
   <startWindow>14000</startWindow>
   <platform>all</platform>
   <minversion>0.9.20</minversion>
-  <test-app>true</test-app>
 </app>
