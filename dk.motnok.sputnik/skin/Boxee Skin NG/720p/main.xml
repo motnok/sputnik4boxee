@@ -33,20 +33,19 @@ set_action("popular");
 			<align>right</align>
 		</control>
 		
-	<!-- Program view -->
+	<!-- List views -->
 	<control type="group" id="1000">
-		<defaultcontrol>1150</defaultcontrol>
-		<posx>0</posx>
+		<posx>300</posx>
 		<posy>0</posy>
-		<width>1280</width>
+		<width>980</width>
 		<height>720</height>
 		<!-- Default program view -->
 		<control type="fixedlist" id="1150">
 			<posx>0</posx>
 			<posy>0</posy>
-			<width>1280</width>
+			<width>980</width>
 			<height>720</height>
-			<onleft>9000</onleft>
+			<onleft>8000</onleft>
 			<orientation>vertical</orientation>
 			<itemlayout width="930" height="30">	
 				<control type="label">
@@ -62,11 +61,11 @@ set_action("popular");
 					<shadowcolor>33000000</shadowcolor>
 				</control>
 			</itemlayout>
-			<focusedlayout width="930" height="80">
+			<focusedlayout width="930" height="300">
 				<control type="label">
 					<posx>25</posx>
 					<posy>50</posy>
-					<width>1265</width>
+					<width>960</width>
 					<height>70</height>
 					<font>font48b</font>
 					<align>left</align>
@@ -77,9 +76,9 @@ set_action("popular");
 					<shadowcolor>66000000</shadowcolor>
 				</control>
 				<control type="label">
-					<posx>800</posx>
-					<posy>110</posy>
-					<width>440</width>
+					<posx>280</posx>
+					<posy>115</posy>
+					<width>650</width>
 					<height>250</height>
 					<font>font18</font>
 					<align>left</align>
@@ -91,39 +90,235 @@ set_action("popular");
 					<shadowcolor>66000000</shadowcolor>
 				</control>
 				<control type="image">
-					<posx>900</posx>
-					<posy>370</posy>
-					<width>300</width>
-					<height>300</height>
+					<posx>30</posx>
+					<posy>115</posy>
+					<width>226</width>
+					<height>127</height>
 					<texture>$INFO[ListItem.Thumb]</texture>
 					<aspectratio align="top">keep</aspectratio>
 				</control>
 			</focusedlayout>
 			<content type="url" url="">
 				<onclick lang="python"><![CDATA[
-handle_listitem_select()
+handle_item_select()
+]]></onclick>
+			</content>
+		</control>
+		<!-- Series view -->
+		<control type="panel" id="1250">
+			<posx>0</posx>
+			<posy>60</posy>
+			<width>980</width>
+			<height>680</height>
+			<onleft>8000</onleft>
+			<orientation>vertical</orientation>
+			<animation effect="fade" time="400">VisibleChange</animation>
+			<itemlayout width="245" height="245">	
+				<control type="label">
+					<posx>10</posx>
+					<posy>0</posy>
+					<width>245</width>
+					<height>30</height>
+					<font>font22</font>
+					<align>left</align>
+					<aligny>top</aligny>
+					<label>$INFO[ListItem.TVShowTitle,, - ]$INFO[ListItem.Label]</label>
+					<textcolor>66FFFFFF</textcolor>
+					<shadowcolor>33000000</shadowcolor>
+				</control>
+				<control type="image">
+					<posx>10</posx>
+					<posy>40</posy>
+					<width>226</width>
+					<height>127</height>
+					<texture>$INFO[ListItem.Thumb]</texture>
+					<aspectratio align="top">keep</aspectratio>
+				</control>
+			</itemlayout>
+			<focusedlayout width="245" height="245">
+				<control type="label">
+					<posx>10</posx>
+					<posy>0</posy>
+					<width>245</width>
+					<height>30</height>
+					<font>font22</font>
+					<align>left</align>
+					<aligny>top</aligny>
+					<label>$INFO[ListItem.Label]</label>
+					<scroll>true</scroll>
+					<textcolor>FFFFFFFF</textcolor>
+					<shadowcolor>66000000</shadowcolor>
+				</control>
+				<control type="image">
+					<posx>10</posx>
+					<posy>40</posy>
+					<width>226</width>
+					<height>127</height>
+					<texture>$INFO[ListItem.Thumb]</texture>
+					<aspectratio align="top">keep</aspectratio>
+				</control>
+			</focusedlayout>
+			<content type="url" url="">
+				<onclick lang="python"><![CDATA[
+handle_series_select()
+]]></onclick>
+			</content>
+		</control>
+		<!-- Categories view -->
+		<control type="list" id="1350">
+			<posx>0</posx>
+			<posy>60</posy>
+			<width>980</width>
+			<height>680</height>
+			<onleft>8000</onleft>
+			<orientation>vertical</orientation>
+			<itemlayout width="930" height="30">	
+				<control type="label">
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>930</width>
+					<height>30</height>
+					<font>font22</font>
+					<align>left</align>
+					<aligny>top</aligny>
+					<label>$INFO[ListItem.Label]</label>
+					<textcolor>66FFFFFF</textcolor>
+					<shadowcolor>33000000</shadowcolor>
+				</control>
+			</itemlayout>
+			<focusedlayout width="930" height="60">
+				<control type="label">
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>960</width>
+					<height>60</height>
+					<font>font48b</font>
+					<align>left</align>
+					<aligny>top</aligny>
+					<label>$INFO[ListItem.Label]</label>
+					<scroll>true</scroll>
+					<textcolor>FFFFFFFF</textcolor>
+					<shadowcolor>66000000</shadowcolor>
+				</control>
+			</focusedlayout>
+			<content type="url" url="">
+				<onclick lang="python"><![CDATA[
+handle_categories_select()
 ]]></onclick>
 			</content>
 		</control>
 	</control>
-		
-		<!-- navigation buttons -->
-		<control type="group" id="9000">
-			<posx>-305</posx>
-			<posy>0</posy>
+	
+	<!-- content buttons -->
+	<control type="group" id="8000">
+		<posx>0</posx>
+		<posy>0</posy>
+		<width>300</width>
+		<height>720</height>
+		<control type="grouplist" id="8100">
+			<posx>50</posx>
+			<posy>70</posy>
 			<width>300</width>
 			<height>720</height>
-			<animation effect="slide" end="305,0" time="200" tween="circle">Focus</animation>
-			<animation effect="slide" start="305,0" time="150" tween="back">Unfocus</animation>
-
-			<!-- Menu background -->
-			<control type="image" id="110">				
-				<posx>0</posx>
-				<posy>0</posy>
+			<itemgap>0</itemgap>
+			<onright>1000</onright>
+			<orientation>vertical</orientation>
+			<usecontrolcoords>false</usecontrolcoords>
+			<control type="group">
 				<width>340</width>
-				<height>720</height>
-				<texture>menu.png</texture>
+				<height>40</height>
+				<visible>Control.IsVisible(8130)</visible>
+				<control type="button" id="8130">
+					<width>340</width>
+					<height>40</height>
+					<visible>false</visible>
+					<onleft>9000</onleft>
+					<onright>1350</onright>
+					<onup>-</onup>
+					<ondown>8120</ondown>
+					<onfocus lang="python"><![CDATA[
+show_categories_view()
+]]></onfocus>
+					<label>Vis kategorier</label>
+					<textcolor>33000000</textcolor>
+					<focusedcolor>FFFFFFFF</focusedcolor>
+					<texturenofocus>-</texturenofocus>
+					<texturefocus>y-button-on.png</texturefocus>
+					<font>font24</font>
+					<align>left</align>
+					<aligny>center</aligny>
+				</control>
 			</control>
+			<control type="group">
+				<width>340</width>
+				<height>40</height>
+				<visible>Control.IsVisible(8120)</visible>
+				<control type="button" id="8120">
+					<width>340</width>
+					<height>40</height>
+					<visible>false</visible>
+					<onleft>9000</onleft>
+					<onright>1250</onright>
+					<onup>8130</onup>
+					<ondown>8110</ondown>
+					<onfocus lang="python"><![CDATA[
+show_series_view()
+]]></onfocus>
+					<label>Vis serier</label>
+					<textcolor>33000000</textcolor>
+					<focusedcolor>FFFFFFFF</focusedcolor>
+					<texturenofocus>-</texturenofocus>
+					<texturefocus>y-button-on.png</texturefocus>
+					<font>font24</font>
+					<align>left</align>
+					<aligny>center</aligny>
+				</control>
+			</control>
+			<control type="group">
+				<width>340</width>
+				<height>40</height>
+				<visible>Control.IsVisible(8110)</visible>
+				<control type="button" id="8110">
+					<width>340</width>
+					<height>40</height>
+					<visible>false</visible>
+					<onleft>9000</onleft>
+					<onright>1150</onright>
+					<onup>8120</onup>
+					<ondown>-</ondown>
+					<onfocus lang="python"><![CDATA[
+show_programs_view()
+]]></onfocus>
+					<label>Vis programmer</label>
+					<textcolor>33000000</textcolor>
+					<focusedcolor>FFFFFFFF</focusedcolor>
+					<texturenofocus>-</texturenofocus>
+					<texturefocus>y-button-on.png</texturefocus>
+					<font>font24</font>
+					<align>left</align>
+					<aligny>center</aligny>
+				</control>
+			</control>
+		</control>
+	</control>
+		
+	<!-- navigation buttons -->
+	<control type="group" id="9000">
+		<posx>-305</posx>
+		<posy>0</posy>
+		<width>300</width>
+		<height>720</height>
+		<animation effect="slide" end="305,0" time="200" tween="circle">Focus</animation>
+		<animation effect="slide" start="305,0" time="150" tween="back">Unfocus</animation>
+
+		<!-- Menu background -->
+		<control type="image" id="110">				
+			<posx>0</posx>
+			<posy>0</posy>
+			<width>340</width>
+			<height>720</height>
+			<texture>menu.png</texture>
+		</control>
 		
 		<control type="grouplist" id="9100">
 			<posx>35</posx>
@@ -185,7 +380,7 @@ handle_listitem_select()
 					<align>left</align>
 					<aligny>center</aligny>
 					<onclick lang="python"><![CDATA[
-mc.GetActiveWindow().GetList(1150).SetFocus();
+mc.GetActiveWindow().GetControl(1000).SetFocus();
 set_action("popular");
 ]]></onclick>
 				</control>
@@ -210,7 +405,7 @@ set_action("popular");
 					<align>left</align>
 					<aligny>center</aligny>
 					<onclick lang="python"><![CDATA[
-mc.GetActiveWindow().GetList(1150).SetFocus();
+mc.GetActiveWindow().GetControl(1000).SetFocus();
 set_action("latest");
 ]]></onclick>
 				</control>
@@ -220,37 +415,12 @@ set_action("latest");
 				<height>58</height>
 				<visible>Control.IsVisible(9003)</visible>
 				<control type="button" id="9003">
-					<width>142</width>
+					<width>340</width>
 					<height>58</height>
 					<onleft>-</onleft>
 					<onright>1000</onright>
 					<onup>9002</onup>
 					<ondown>9004</ondown>
-					<label>Kategorier</label>
-					<textcolor>33000000</textcolor>
-					<focusedcolor>FFA91467</focusedcolor>
-					<texturenofocus>-</texturenofocus>
-					<texturefocus>y-button-sm-on.png</texturefocus>
-					<font>font28</font>
-					<align>left</align>
-					<aligny>center</aligny>
-					<onclick lang="python"><![CDATA[
-mc.GetActiveWindow().GetList(1150).SetFocus();
-set_action("category");
-]]></onclick>
-				</control>
-			</control>
-			<control type="group">
-				<width>340</width>
-				<height>58</height>
-				<visible>Control.IsVisible(9004)</visible>
-				<control type="button" id="9004">
-					<width>340</width>
-					<height>58</height>
-					<onleft>-</onleft>
-					<onright>1000</onright>
-					<onup>9003</onup>
-					<ondown>9005</ondown>
 					<label>Snigpræmierer</label>
 					<textcolor>33000000</textcolor>
 					<focusedcolor>FFA91467</focusedcolor>
@@ -260,8 +430,33 @@ set_action("category");
 					<align>left</align>
 					<aligny>center</aligny>
 					<onclick lang="python"><![CDATA[
-mc.GetActiveWindow().GetList(1150).SetFocus();
+mc.GetActiveWindow().GetControl(1000).SetFocus();
 set_action("previews");
+]]></onclick>
+				</control>
+			</control>
+			<control type="group">
+				<width>340</width>
+				<height>58</height>
+				<visible>Control.IsVisible(9004)</visible>
+				<control type="button" id="9004">
+					<width>142</width>
+					<height>58</height>
+					<onleft>-</onleft>
+					<onright>1000</onright>
+					<onup>9003</onup>
+					<ondown>9005</ondown>
+					<label>Alle kategorier</label>
+					<textcolor>33000000</textcolor>
+					<focusedcolor>FFA91467</focusedcolor>
+					<texturenofocus>-</texturenofocus>
+					<texturefocus>y-button-sm-on.png</texturefocus>
+					<font>font28</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<onclick lang="python"><![CDATA[
+mc.GetActiveWindow().GetControl(1000).SetFocus();
+set_action("category");
 ]]></onclick>
 				</control>
 			</control>
@@ -276,7 +471,7 @@ set_action("previews");
 					<onright>1000</onright>
 					<onup>9004</onup>
 					<ondown>9006</ondown>
-					<label>Serier</label>
+					<label>Alle serier</label>
 					<textcolor>33000000</textcolor>
 					<focusedcolor>FFA91467</focusedcolor>
 					<texturenofocus>-</texturenofocus>
@@ -285,7 +480,7 @@ set_action("previews");
 					<align>left</align>
 					<aligny>center</aligny>
 					<onclick lang="python"><![CDATA[
-mc.GetActiveWindow().GetList(1150).SetFocus();
+mc.GetActiveWindow().GetControl(1000).SetFocus();
 set_action("series");
 ]]></onclick>
 				</control>
@@ -310,7 +505,7 @@ set_action("series");
 					<align>left</align>
 					<aligny>center</aligny>
 					<onclick lang="python"><![CDATA[
-mc.GetActiveWindow().GetList(1150).SetFocus();
+mc.GetActiveWindow().GetControl(1000).SetFocus();
 set_action("broadcast");
 ]]></onclick>
 				</control>
@@ -347,7 +542,7 @@ set_action("search");
 					<width>340</width>
 					<height>58</height>
 					<onleft>-</onleft>
-					<onright>-</onright>
+					<onright>1000</onright>
 					<onup>9007</onup>
 					<ondown>-</ondown>
 					<label>Login</label>

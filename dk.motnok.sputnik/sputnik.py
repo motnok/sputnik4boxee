@@ -8,15 +8,64 @@ import mc
 
 # Specific functions
 def set_items(items):
-	mc.GetActiveWindow().GetList(1150).SetItems(items)
+	mc.GetActiveWindow().GetList(1150).SetItems(items);
+	mc.GetActiveWindow().GetControl(8110).SetVisible(True);
 	
+def set_series(series):
+	mc.GetActiveWindow().GetList(1250).SetItems(series);
+	mc.GetActiveWindow().GetControl(8120).SetVisible(True);
+	
+def set_categories(categories):
+	mc.GetActiveWindow().GetList(1350).SetItems(categories);
+	mc.GetActiveWindow().GetControl(8130).SetVisible(True);
+	
+def show_programs_view():
+	mc.GetActiveWindow().GetList(1150).SetVisible(True);
+	mc.GetActiveWindow().GetList(1250).SetVisible(False);
+	mc.GetActiveWindow().GetList(1350).SetVisible(False);
+	
+def show_series_view():
+	mc.GetActiveWindow().GetList(1150).SetVisible(False);
+	mc.GetActiveWindow().GetList(1250).SetVisible(True);
+	mc.GetActiveWindow().GetList(1350).SetVisible(False);
+
+def show_categories_view():
+	mc.GetActiveWindow().GetList(1150).SetVisible(False);
+	mc.GetActiveWindow().GetList(1250).SetVisible(False);
+	mc.GetActiveWindow().GetList(1350).SetVisible(True);
+	
+def focus_programs_view():
+	mc.GetActiveWindow().GetControl(1150).SetFocus();
+	
+def focus_series_view():
+	mc.GetActiveWindow().GetControl(1250).SetFocus();
+
+def focus_categories_view():
+	mc.GetActiveWindow().GetControl(1350).SetFocus();
+	
+def clear():
+	mc.GetActiveWindow().GetList(1150).SetItems(mc.ListItems());
+	mc.GetActiveWindow().GetList(1250).SetItems(mc.ListItems());
+	mc.GetActiveWindow().GetList(1350).SetItems(mc.ListItems());
+	mc.GetActiveWindow().GetControl(8110).SetVisible(False);
+	mc.GetActiveWindow().GetControl(8120).SetVisible(False);
+	mc.GetActiveWindow().GetControl(8130).SetVisible(False);
+
 def set_headline(newLabel):
 	label = mc.GetActiveWindow().GetLabel(120);
 	label.SetLabel(newLabel);
 
-def handle_listitem_select():
+def handle_item_select():
 	list = mc.GetActiveWindow().GetList(1150);
-	set_action_from_list(list),
+	set_action_from_list(list);
+
+def handle_series_select():
+	list = mc.GetActiveWindow().GetList(1250);
+	set_action_from_list(list);
+	
+def handle_categories_select():
+	list = mc.GetActiveWindow().GetList(1350);
+	set_action_from_list(list);
 
 def set_action_from_list(list):
 	listitems = list.GetItems();
@@ -60,72 +109,92 @@ def set_action(action, item = None):
 			get_categories();
 	
 def show_popular_programs(page):
-	set_items(mc.ListItems())
+	clear();
 	url = 'http://r7.tv2.dk/api/sputnik/programs/sort-popularity/page-' + str(page) + '.json'
 	items = get_programs_from_url(url);
-	set_items(items)
-	set_headline("Mest populære");
+	set_items(items);
+	show_programs_view();
+	focus_programs_view();
+ 	set_headline("Mest populære");
 	
 def get_latest_programs(page):
-	set_items(mc.ListItems())
+	clear();
 	url = 'http://r7.tv2.dk/api/sputnik/programs/sort-latest/page-' + str(page) + '.json'
 	items = get_programs_from_url(url);
 	set_items(items)
+	show_programs_view();
+	focus_programs_view();
 	set_headline("Seneste");
 
 def get_sneakpreviews():
-	set_items(mc.ListItems())
+	clear();
 	items = get_programs_from_url("http://r7.tv2.dk/api/sputnik/programs/sneakpreview.json")
 	set_items(items)
+	show_programs_view();
+	focus_programs_view();
 	set_headline("Snigpræmierer");
 	
 def get_latest_movies(page):
-	set_items(mc.ListItems())
+	clear();
 	url = 'http://r7.tv2.dk/api/sputnik/categories/5/programs/sort-latest/page-' + str(page) + '.json'
 	items = get_programs_from_url(url);
-	set_items(items)
+	set_items(items);
+	show_programs_view();
+	focus_programs_view();
 	
 def get_series_program(series, page):
-	set_items(mc.ListItems())
+	clear();
 	url = 'http://r7.tv2.dk/api/sputnik/series/' + str(series) + '/programs/sort-latest/page-' + str(page) + '.json'
 	items = get_programs_from_url(url);
-	set_items(items)
+	set_items(items);
+	show_programs_view();
+	focus_programs_view();
 	
 def get_series():
-	set_items(mc.ListItems())
+	clear();
 	url = 'http://r7.tv2.dk/api/sputnik/series.json'
 	items = get_series_from_url(url);
-	set_items(items)	
+	set_series(items)	
 	set_headline("Serier");
+	show_series_view();
+	focus_series_view();
 	
 def get_categories(id = None):
-	set_items(mc.ListItems());
+	clear();
 	set_headline("Kategorier");
 	if(id != None):
-		items = get_categories_from_url('http://r7.tv2.dk/api/sputnik/categories/'+str(id)+'.json');
+		categories = get_categories_from_url('http://r7.tv2.dk/api/sputnik/categories/'+str(id)+'.json');
+		if(len(categories)>0):
+			set_categories(categories);
+			show_categories_view();
+			focus_categories_view();
 		# Look for child programs and series
 		
-		seperator = mc.ListItem();
-		seperator.SetLabel('');
-		items.append(seperator);
-		series = mc.ListItem();
-		series.SetLabel('Serier:');
-		items.append(series);
-		items = get_series_from_url('http://r7-dyn.tv2.dk/api/sputnik/categories/'+str(id)+'/series.json', items);
-		
-		items.append(seperator);
-		series = mc.ListItem();
-		series.SetLabel('Programmer:');
-		items.append(series);
-		items = get_programs_from_url('http://r7.tv2.dk/api/sputnik/categories/'+str(id)+'/programs/sort-latest/page-1.json', items);
+		series = get_series_from_url('http://r7-dyn.tv2.dk/api/sputnik/categories/'+str(id)+'/series.json');
+		if(len(series)>0):
+			set_series(series);
+			if(len(categories)<1):
+				show_series_view();
+				focus_series_view();
+				
+		items = get_programs_from_url('http://r7.tv2.dk/api/sputnik/categories/'+str(id)+'/programs/sort-latest/page-1.json');
+		if(len(items)>0):
+			set_items(items);
+			if(len(categories)<1 and len(series)<1):
+				show_programs_view();
+				focus_programs_view();
 	else:
-		items = get_categories_from_url('http://r7.tv2.dk/api/sputnik/categories.json');
-	set_items(items)	
+		categories = get_categories_from_url('http://r7.tv2.dk/api/sputnik/categories.json');
+		set_categories(categories);
+		show_categories_view();
+		focus_categories_view();
 	
 def get_broadcasts():
-	set_items(mc.ListItems());
+	clear();
 	items = get_broadcasts_from_url('http://r7-dyn.tv2.dk/api/sputnik/placeholder/687/content.json');
-	set_items(items)	
+	set_items(items);
+	show_programs_view();
+	focus_programs_view();
 	set_headline("Live TV");
 		
 def search():
@@ -140,7 +209,7 @@ def search():
 	
 def get_search(term):
 	mc.ShowDialogWait()
-	set_items(mc.ListItems())
+	clear();
 	hasResult = False;
 		
 	socket = urllib2.urlopen("http://r7.tv2.dk/api/sputnik/search.json?query=" + urllib.quote(term))
@@ -159,9 +228,12 @@ def get_search(term):
 			item = get_item_from_program(program)
 			listitems.append(item)
 			hasResult = True;
+		set_items(listitems);
 		if not hasResult:
 			mc.ShowDialogOk("Søg", "Ingen resultater for: " + term);
-		set_items(listitems)
+		else:
+			show_programs_view();
+			focus_programs_view();
 	mc.HideDialogWait()
 	
 def get_series_from_url(url, list = None):
@@ -215,21 +287,6 @@ def get_categories_from_url(url):
 	mc.HideDialogWait()
 	return categories;
 	
-	
-def play_current_list_item():
-	list = mc.GetActiveWindow().GetList(1050)
-	listitems = list.GetItems()
-	listitem = listitems[list.GetFocusedItem()]
-	play_program(listitem)
-	
-def open_current_series():
-	list = mc.GetActiveWindow().GetList(1060)
-	listitems = list.GetItems()
-	listitem = listitems[list.GetFocusedItem()]
-	show_serieslist_window()
-	get_series_program(listitem.GetProperty("id"), 1)
-	set_headline(listitem.GetLabel())
-
 #API
 def get_item_from_program(program):
 	item = mc.ListItem( mc.ListItem.MEDIA_VIDEO_EPISODE )
@@ -256,6 +313,10 @@ def get_item_from_program(program):
 	path = get_path_from_program(program)
 	item.SetPath(path)
 	item.SetProperty("id", str(program['id']))
+	
+	item.SetProperty('nocharge', "0");
+	if('nocharge' in program and program['nocharge']):
+		item.SetProperty('nocharge', "1");
 	
 	if('r7_type' in program):
 		if(program['r7_type'] == "R7_Entity_Broadcast"):
@@ -359,7 +420,8 @@ def login():
 			dialog.ok('Error', str(e))
 
 def play_program(listitem, type = "program"):
-	programid = listitem.GetProperty("id")
+	programid = listitem.GetProperty("id");
+	nocharge = listitem.GetProperty('nocharge');
 	dp = xbmcgui.DialogProgress()
 	dialog = xbmcgui.Dialog()
 
@@ -369,10 +431,13 @@ def play_program(listitem, type = "program"):
 	password = xbmc.getInfoLabel('App.String(password)')
 		
 	try:
-		if not (login_user(username, password)):
-			raise Exception("Kunne ikke logge dig ind!");
-		if not (login_user(username, password)):
-			raise Exception("Kunne ikke logge dig ind!");
+		if (nocharge != "1"):
+			if(username == ""):
+				raise Exception("Du er ikke logget ind!");				
+			if not (login_user(username, password)):
+				raise Exception("Kunne ikke logge dig ind!");
+			if not (login_user(username, password)):
+				raise Exception("Kunne ikke logge dig ind!");
 		newpath = str('flash://sputnik.dk/src=' + urllib.quote_plus("http://sputnik-dyn.tv2.dk/player/simple/id/"+programid+"/type/"+type+"/") + '&bx-ourl=' + urllib.quote_plus(path) + '&bx-jsactions=' + urllib.quote_plus('http://dl.dropbox.com/u/93155/boxee/controls.js'))
 		listitem.SetPath(newpath)
 		mc.GetPlayer().PlayWithActionMenu(listitem)
