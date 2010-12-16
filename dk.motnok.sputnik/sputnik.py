@@ -202,7 +202,6 @@ def search():
 	if(search and len(search)>=3):
 		get_search(search)
 		set_headline("Søgning: " + search);
-		mc.GetActiveWindow().GetList(1150).SetFocus();
 	else:
 		dialog = xbmcgui.Dialog()
 		dialog.ok('For kort!', 'Minimum 3 karakterer i søgordet')
@@ -211,29 +210,37 @@ def get_search(term):
 	mc.ShowDialogWait()
 	clear();
 	hasResult = False;
+	hasSeriesResult = False;
 		
 	socket = urllib2.urlopen("http://r7.tv2.dk/api/sputnik/search.json?query=" + urllib.quote(term))
 	result = socket.read()
 	socket.close()
 	if ( result ):
-		listitems = mc.ListItems()
+		listitems = mc.ListItems();
+		seriesItems = mc.ListItems();
 		resultObj = json.loads(result);
-		for ser in resultObj['series']:
-			item = get_item_from_series(ser)
-			newLabel = "Serie: " + str(item.GetLabel())
-			item.SetLabel(newLabel);
-			listitems.append(item);
-			hasResult = True;
 		for program in resultObj['programs']:
 			item = get_item_from_program(program)
 			listitems.append(item)
 			hasResult = True;
 		set_items(listitems);
+		for ser in resultObj['series']:
+			item = get_item_from_series(ser)
+			newLabel = str(item.GetLabel())
+			item.SetLabel(newLabel);
+			seriesItems.append(item);
+			hasResult = True;
+			hasSeriesResult = True;
+		set_series(seriesItems);
 		if not hasResult:
 			mc.ShowDialogOk("Søg", "Ingen resultater for: " + term);
 		else:
-			show_programs_view();
-			focus_programs_view();
+			if hasSeriesResult:
+				show_series_view();
+				focus_series_view();
+			else:
+				show_programs_view();
+				focus_programs_view();
 	mc.HideDialogWait()
 	
 def get_series_from_url(url, list = None):
