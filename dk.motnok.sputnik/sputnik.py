@@ -348,7 +348,10 @@ def get_item_from_series(series):
 	
 def get_item_from_category(category):
 	item = mc.ListItem( mc.ListItem.MEDIA_UNKNOWN )
-	item.SetLabel(unicode(category['code']).encode("utf-8"));
+	if(category['title'] != None):
+		item.SetLabel(unicode(category['title']).encode("utf-8"));
+	else:
+		item.SetLabel(unicode(category['code']).encode("utf-8"));	
 	if(category['description'] != None):
 		item.SetDescription(unicode(category['description']).encode("utf-8"))
 	item.SetProperty("id", str(category['id']));
