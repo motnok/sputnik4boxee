@@ -223,7 +223,8 @@ def get_search(term):
 			item = get_item_from_program(program)
 			listitems.append(item)
 			hasResult = True;
-		set_items(listitems);
+		if(len(listitems)>0):
+			set_items(listitems);
 		for ser in resultObj['series']:
 			item = get_item_from_series(ser)
 			newLabel = str(item.GetLabel())
@@ -231,7 +232,8 @@ def get_search(term):
 			seriesItems.append(item);
 			hasResult = True;
 			hasSeriesResult = True;
-		set_series(seriesItems);
+		if(len(seriesItems)>0):
+			set_series(seriesItems);
 		if not hasResult:
 			mc.ShowDialogOk("Søg", "Ingen resultater for: " + term);
 		else:
