@@ -33,69 +33,101 @@ set_action("popular");
 			<align>right</align>
 		</control>
 		
-	<!-- List views -->
+	<!-- program views -->
 	<control type="group" id="1000">
-		<posx>300</posx>
-		<posy>0</posy>
-		<width>980</width>
-		<height>720</height>
+		<posx>0</posx>
+		<posy>60</posy>
+		<width>965</width>
+		<height>660</height>
 		<!-- Default program view -->
-		<control type="fixedlist" id="1150">
-			<posx>0</posx>
+		<control type="panel" id="1150">
+			<posx>300</posx>
 			<posy>0</posy>
-			<width>980</width>
-			<height>720</height>
+			<width>965</width>
+			<height>660</height>
 			<onleft>8000</onleft>
+			<onup>-</onup>
 			<orientation>vertical</orientation>
-			<itemlayout width="930" height="30">	
+			<itemlayout width="965" height="120">	
 				<control type="label">
-					<posx>25</posx>
+					<posx>190</posx>
 					<posy>30</posy>
-					<width>930</width>
+					<width>700</width>
 					<height>30</height>
-					<font>font22</font>
+					<font>font22b</font>
 					<align>left</align>
 					<aligny>top</aligny>
 					<label>$INFO[ListItem.TVShowTitle,, - ]$INFO[ListItem.Label]</label>
 					<textcolor>66FFFFFF</textcolor>
-					<shadowcolor>33000000</shadowcolor>
+				</control>
+				<control type="label">
+					<posx>190</posx>
+					<posy>60</posy>
+					<width>700</width>
+					<height>50</height>
+					<font>font16</font>
+					<align>left</align>
+					<aligny>top</aligny>
+					<info>ListItem.property(description)</info>
+					<scroll>false</scroll>
+					<wrapmultiline>true</wrapmultiline>
+					<textcolor>66FFFFFF</textcolor>
+				</control>
+				<control type="image">
+					<colordiffuse>66FFFFFF</colordiffuse>
+					<posx>30</posx>
+					<posy>30</posy>
+					<width>139</width>
+					<height>78</height>
+					<texture>$INFO[ListItem.Thumb]</texture>
+					<aspectratio align="top">keep</aspectratio>
 				</control>
 			</itemlayout>
-			<focusedlayout width="930" height="300">
+			<focusedlayout width="965" height="120">
+				<control type="image">
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>965</width>
+					<height>139</height>
+					<texture>program_select.png</texture>
+					<aspectratio align="top">keep</aspectratio>
+					<animation effect="fade" start="37.5" end="100" reversible="false" time="500" tween="circle">Focus</animation>
+				</control>
 				<control type="label">
-					<posx>25</posx>
-					<posy>50</posy>
-					<width>960</width>
-					<height>70</height>
-					<font>font48b</font>
+					<posx>190</posx>
+					<posy>30</posy>
+					<width>700</width>
+					<height>30</height>
+					<font>font22b</font>
 					<align>left</align>
 					<aligny>top</aligny>
 					<label>$INFO[ListItem.TVShowTitle,, - ]$INFO[ListItem.Label]</label>
 					<scroll>true</scroll>
-					<textcolor>FFFFFFFF</textcolor>
-					<shadowcolor>66000000</shadowcolor>
+					<textcolor>FFA91467</textcolor>
+					<animation effect="fade" start="37.5" end="100" reversible="false" time="500" tween="circle">Focus</animation>
 				</control>
 				<control type="label">
-					<posx>280</posx>
-					<posy>115</posy>
-					<width>650</width>
-					<height>250</height>
-					<font>font18</font>
+					<posx>190</posx>
+					<posy>60</posy>
+					<width>700</width>
+					<height>50</height>
+					<font>font16</font>
 					<align>left</align>
 					<aligny>top</aligny>
 					<info>ListItem.property(description)</info>
-					<scroll>true</scroll>
+					<scroll>false</scroll>
 					<wrapmultiline>true</wrapmultiline>
-					<textcolor>FFFFFFFF</textcolor>
-					<shadowcolor>66000000</shadowcolor>
+					<textcolor>CC000000</textcolor>
+					<animation effect="fade" start="37.5" end="100" reversible="false" time="500" tween="circle">Focus</animation>
 				</control>
 				<control type="image">
 					<posx>30</posx>
-					<posy>115</posy>
-					<width>226</width>
-					<height>127</height>
+					<posy>30</posy>
+					<width>139</width>
+					<height>78</height>
 					<texture>$INFO[ListItem.Thumb]</texture>
 					<aspectratio align="top">keep</aspectratio>
+					<animation effect="fade" start="37.5" end="100" reversible="false" time="500" tween="circle">Focus</animation>
 				</control>
 			</focusedlayout>
 			<content type="url" url="">
@@ -106,56 +138,92 @@ handle_item_select()
 		</control>
 		<!-- Series view -->
 		<control type="panel" id="1250">
-			<posx>0</posx>
-			<posy>60</posy>
-			<width>980</width>
-			<height>680</height>
+			<posx>300</posx>
+			<posy>0</posy>
+			<width>965</width>
+			<height>660</height>
 			<onleft>8000</onleft>
 			<orientation>vertical</orientation>
-			<animation effect="fade" time="400">VisibleChange</animation>
-			<itemlayout width="245" height="245">	
+			<itemlayout width="965" height="120">	
 				<control type="label">
-					<posx>10</posx>
-					<posy>0</posy>
-					<width>245</width>
+					<posx>190</posx>
+					<posy>30</posy>
+					<width>700</width>
 					<height>30</height>
-					<font>font22</font>
+					<font>font22b</font>
 					<align>left</align>
 					<aligny>top</aligny>
-					<label>$INFO[ListItem.TVShowTitle,, - ]$INFO[ListItem.Label]</label>
+					<label>$INFO[ListItem.Label]</label>
 					<textcolor>66FFFFFF</textcolor>
-					<shadowcolor>33000000</shadowcolor>
+				</control>
+				<control type="label">
+					<posx>190</posx>
+					<posy>60</posy>
+					<width>700</width>
+					<height>50</height>
+					<font>font16</font>
+					<align>left</align>
+					<aligny>top</aligny>
+					<info>ListItem.property(description)</info>
+					<scroll>false</scroll>
+					<wrapmultiline>true</wrapmultiline>
+					<textcolor>66FFFFFF</textcolor>
 				</control>
 				<control type="image">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>226</width>
-					<height>127</height>
+					<colordiffuse>66FFFFFF</colordiffuse>
+					<posx>30</posx>
+					<posy>30</posy>
+					<width>139</width>
+					<height>78</height>
 					<texture>$INFO[ListItem.Thumb]</texture>
 					<aspectratio align="top">keep</aspectratio>
 				</control>
 			</itemlayout>
-			<focusedlayout width="245" height="245">
-				<control type="label">
-					<posx>10</posx>
+			<focusedlayout width="965" height="120">				
+				<control type="image">
+					<posx>0</posx>
 					<posy>0</posy>
-					<width>245</width>
+					<width>965</width>
+					<height>139</height>
+					<texture>program_select.png</texture>
+					<aspectratio align="top">keep</aspectratio>
+					<animation effect="fade" start="37.5" end="100" reversible="false" time="500" tween="circle">Focus</animation>
+				</control>
+				<control type="label">
+					<posx>190</posx>
+					<posy>30</posy>
+					<width>700</width>
 					<height>30</height>
-					<font>font22</font>
+					<font>font22b</font>
 					<align>left</align>
 					<aligny>top</aligny>
 					<label>$INFO[ListItem.Label]</label>
 					<scroll>true</scroll>
-					<textcolor>FFFFFFFF</textcolor>
-					<shadowcolor>66000000</shadowcolor>
+					<textcolor>FFA91467</textcolor>
+					<animation effect="fade" start="37.5" end="100" reversible="false" time="500" tween="circle">Focus</animation>
+				</control>
+				<control type="label">
+					<posx>190</posx>
+					<posy>60</posy>
+					<width>700</width>
+					<height>50</height>
+					<font>font16</font>
+					<align>left</align>
+					<aligny>top</aligny>
+					<info>ListItem.property(description)</info>
+					<scroll>false</scroll>
+					<wrapmultiline>true</wrapmultiline>
+					<textcolor>CC000000</textcolor>
+					<animation effect="fade" start="37.5" end="100" reversible="false" time="500" tween="circle">Focus</animation>
 				</control>
 				<control type="image">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>226</width>
-					<height>127</height>
+					<posx>30</posx>
+					<posy>30</posy>
+					<width>139</width>
+					<height>78</height>
 					<texture>$INFO[ListItem.Thumb]</texture>
 					<aspectratio align="top">keep</aspectratio>
+					<animation effect="fade" start="37.5" end="100" reversible="false" time="500" tween="circle">Focus</animation>
 				</control>
 			</focusedlayout>
 			<content type="url" url="">
@@ -166,39 +234,47 @@ handle_series_select()
 		</control>
 		<!-- Categories view -->
 		<control type="list" id="1350">
-			<posx>0</posx>
-			<posy>60</posy>
-			<width>980</width>
-			<height>680</height>
+			<posx>300</posx>
+			<posy>0</posy>
+			<width>965</width>
+			<height>660</height>
 			<onleft>8000</onleft>
 			<orientation>vertical</orientation>
-			<itemlayout width="930" height="30">	
+			<itemlayout width="965" height="50">	
 				<control type="label">
-					<posx>0</posx>
-					<posy>0</posy>
-					<width>930</width>
+					<posx>50</posx>
+					<posy>15</posy>
+					<width>700</width>
 					<height>30</height>
-					<font>font22</font>
+					<font>font34b</font>
 					<align>left</align>
 					<aligny>top</aligny>
 					<label>$INFO[ListItem.Label]</label>
 					<textcolor>66FFFFFF</textcolor>
-					<shadowcolor>33000000</shadowcolor>
 				</control>
 			</itemlayout>
-			<focusedlayout width="930" height="60">
-				<control type="label">
+			<focusedlayout width="965" height="120">				
+				<control type="image">
 					<posx>0</posx>
 					<posy>0</posy>
-					<width>960</width>
-					<height>60</height>
-					<font>font48b</font>
+					<width>965</width>
+					<height>139</height>
+					<texture>program_select.png</texture>
+					<aspectratio align="top">keep</aspectratio>
+					<animation effect="fade" start="37.5" end="100" reversible="false" time="500" tween="circle">Focus</animation>
+				</control>
+				<control type="label">
+					<posx>50</posx>
+					<posy>30</posy>
+					<width>700</width>
+					<height>30</height>
+					<font>font56b</font>
 					<align>left</align>
 					<aligny>top</aligny>
 					<label>$INFO[ListItem.Label]</label>
 					<scroll>true</scroll>
-					<textcolor>FFFFFFFF</textcolor>
-					<shadowcolor>66000000</shadowcolor>
+					<textcolor>FFA91467</textcolor>
+					<animation effect="fade" start="37.5" end="100" reversible="false" time="500" tween="circle">Focus</animation>
 				</control>
 			</focusedlayout>
 			<content type="url" url="">
@@ -211,15 +287,15 @@ handle_categories_select()
 	
 	<!-- content buttons -->
 	<control type="group" id="8000">
-		<posx>0</posx>
-		<posy>0</posy>
-		<width>300</width>
-		<height>720</height>
+		<posx>40</posx>
+		<posy>60</posy>
+		<width>340</width>
+		<height>600</height>
 		<control type="grouplist" id="8100">
-			<posx>50</posx>
-			<posy>70</posy>
-			<width>300</width>
-			<height>720</height>
+			<posx>0</posx>
+			<posy>0</posy>
+			<width>340</width>
+			<height>600</height>
 			<itemgap>0</itemgap>
 			<onright>1000</onright>
 			<orientation>vertical</orientation>
@@ -229,13 +305,13 @@ handle_categories_select()
 				<height>40</height>
 				<visible>Control.IsVisible(8130)</visible>
 				<control type="button" id="8130">
-					<width>340</width>
+					<width>240</width>
 					<height>40</height>
 					<visible>false</visible>
-					<onleft>9000</onleft>
-					<onright>1350</onright>
 					<onup>-</onup>
 					<ondown>8120</ondown>
+					<onright>1350</onright>
+					<onleft>9000</onleft>
 					<onfocus lang="python"><![CDATA[
 show_categories_view()
 ]]></onfocus>
@@ -250,17 +326,17 @@ show_categories_view()
 				</control>
 			</control>
 			<control type="group">
-				<width>340</width>
+				<width>240</width>
 				<height>40</height>
 				<visible>Control.IsVisible(8120)</visible>
 				<control type="button" id="8120">
 					<width>340</width>
 					<height>40</height>
 					<visible>false</visible>
-					<onleft>9000</onleft>
-					<onright>1250</onright>
-					<onup>8130</onup>
 					<ondown>8110</ondown>
+					<onup>8130</onup>
+					<onright>1250</onright>
+					<onleft>9000</onleft>
 					<onfocus lang="python"><![CDATA[
 show_series_view()
 ]]></onfocus>
@@ -282,10 +358,9 @@ show_series_view()
 					<width>340</width>
 					<height>40</height>
 					<visible>false</visible>
-					<onleft>9000</onleft>
-					<onright>1150</onright>
 					<onup>8120</onup>
-					<ondown>-</ondown>
+					<onright>1150</onright>
+					<onleft>9000</onleft>
 					<onfocus lang="python"><![CDATA[
 show_programs_view()
 ]]></onfocus>
