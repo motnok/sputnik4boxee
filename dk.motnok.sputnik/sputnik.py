@@ -108,14 +108,17 @@ def set_action(action, item = None):
 		else:
 			get_categories();
 	
-def show_popular_programs(page):
+def init_popular_programs(page):
 	clear();
 	url = 'http://r7.tv2.dk/api/sputnik/programs/sort-popularity/page-' + str(page) + '.json'
 	items = get_programs_from_url(url);
 	set_items(items);
 	show_programs_view();
+	set_headline("Mest populære");
+	
+def show_popular_programs(page):
+	init_popular_programs(page);
 	focus_programs_view();
- 	set_headline("Mest populære");
 	
 def get_latest_programs(page):
 	clear();
@@ -268,6 +271,7 @@ def get_broadcasts_from_url(url):
 	result = http.Get(url)
 	if ( result ):
 		resultObj = json.loads(result);
+		
 		for broadcast in resultObj['broadcasts']:
 			item = mc.ListItem( mc.ListItem.MEDIA_VIDEO_OTHER )
 			item.SetProperty("id", str(broadcast['id']))

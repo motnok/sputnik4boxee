@@ -4,7 +4,7 @@
 	<allowoverlay>no</allowoverlay>
 	<onload lang="python"><![CDATA[
 from sputnik import *
-set_action("popular");
+init_popular_programs(1);
 ]]></onload>
 	<controls>
 <!-- Background image -->
