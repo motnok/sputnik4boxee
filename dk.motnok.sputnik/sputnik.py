@@ -281,7 +281,9 @@ def get_broadcasts_from_url(url):
 				item.SetDescription(unicode(broadcast['description']).encode("utf-8"))
 			if(len(broadcast['program_schedule'])>0):
 				item.SetLabel(unicode(broadcast['program_schedule'][0]['title']).encode("utf-8"))
-				item.SetDescription(unicode(broadcast['program_schedule'][0]['description']).encode("utf-8"))
+				item.SetDescription("");
+				if(broadcast['program_schedule'][0]['description'] != None):
+					item.SetDescription(unicode(broadcast['program_schedule'][0]['description']).encode("utf-8"))
 		
 			if('brand' in broadcast and broadcast['brand'] != None):
 				item.SetThumbnail(str(get_thumbnail(broadcast['brand'])));
