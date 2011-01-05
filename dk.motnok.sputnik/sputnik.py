@@ -8,63 +8,63 @@ import mc
 
 # Specific functions
 def set_items(items):
-	mc.GetActiveWindow().GetList(1150).SetItems(items);
-	mc.GetActiveWindow().GetControl(8110).SetVisible(True);
+	mc.GetWindow(14000).GetList(1150).SetItems(items);
+	mc.GetWindow(14000).GetControl(8110).SetVisible(True);
 	
 def set_series(series):
-	mc.GetActiveWindow().GetList(1250).SetItems(series);
-	mc.GetActiveWindow().GetControl(8120).SetVisible(True);
+	mc.GetWindow(14000).GetList(1250).SetItems(series);
+	mc.GetWindow(14000).GetControl(8120).SetVisible(True);
 	
 def set_categories(categories):
-	mc.GetActiveWindow().GetList(1350).SetItems(categories);
-	mc.GetActiveWindow().GetControl(8130).SetVisible(True);
+	mc.GetWindow(14000).GetList(1350).SetItems(categories);
+	mc.GetWindow(14000).GetControl(8130).SetVisible(True);
 	
 def show_programs_view():
-	mc.GetActiveWindow().GetList(1150).SetVisible(True);
-	mc.GetActiveWindow().GetList(1250).SetVisible(False);
-	mc.GetActiveWindow().GetList(1350).SetVisible(False);
+	mc.GetWindow(14000).GetList(1150).SetVisible(True);
+	mc.GetWindow(14000).GetList(1250).SetVisible(False);
+	mc.GetWindow(14000).GetList(1350).SetVisible(False);
 	
 def show_series_view():
-	mc.GetActiveWindow().GetList(1150).SetVisible(False);
-	mc.GetActiveWindow().GetList(1250).SetVisible(True);
-	mc.GetActiveWindow().GetList(1350).SetVisible(False);
+	mc.GetWindow(14000).GetList(1150).SetVisible(False);
+	mc.GetWindow(14000).GetList(1250).SetVisible(True);
+	mc.GetWindow(14000).GetList(1350).SetVisible(False);
 
 def show_categories_view():
-	mc.GetActiveWindow().GetList(1150).SetVisible(False);
-	mc.GetActiveWindow().GetList(1250).SetVisible(False);
-	mc.GetActiveWindow().GetList(1350).SetVisible(True);
+	mc.GetWindow(14000).GetList(1150).SetVisible(False);
+	mc.GetWindow(14000).GetList(1250).SetVisible(False);
+	mc.GetWindow(14000).GetList(1350).SetVisible(True);
 	
 def focus_programs_view():
-	mc.GetActiveWindow().GetControl(1150).SetFocus();
+	mc.GetWindow(14000).GetControl(1150).SetFocus();
 	
 def focus_series_view():
-	mc.GetActiveWindow().GetControl(1250).SetFocus();
+	mc.GetWindow(14000).GetControl(1250).SetFocus();
 
 def focus_categories_view():
-	mc.GetActiveWindow().GetControl(1350).SetFocus();
+	mc.GetWindow(14000).GetControl(1350).SetFocus();
 	
 def clear():
-	mc.GetActiveWindow().GetList(1150).SetItems(mc.ListItems());
-	mc.GetActiveWindow().GetList(1250).SetItems(mc.ListItems());
-	mc.GetActiveWindow().GetList(1350).SetItems(mc.ListItems());
-	mc.GetActiveWindow().GetControl(8110).SetVisible(False);
-	mc.GetActiveWindow().GetControl(8120).SetVisible(False);
-	mc.GetActiveWindow().GetControl(8130).SetVisible(False);
+	mc.GetWindow(14000).GetList(1150).SetItems(mc.ListItems());
+	mc.GetWindow(14000).GetList(1250).SetItems(mc.ListItems());
+	mc.GetWindow(14000).GetList(1350).SetItems(mc.ListItems());
+	mc.GetWindow(14000).GetControl(8110).SetVisible(False);
+	mc.GetWindow(14000).GetControl(8120).SetVisible(False);
+	mc.GetWindow(14000).GetControl(8130).SetVisible(False);
 
 def set_headline(newLabel):
-	label = mc.GetActiveWindow().GetLabel(120);
+	label = mc.GetWindow(14000).GetLabel(120);
 	label.SetLabel(newLabel);
 
 def handle_item_select():
-	list = mc.GetActiveWindow().GetList(1150);
+	list = mc.GetWindow(14000).GetList(1150);
 	set_action_from_list(list);
 
 def handle_series_select():
-	list = mc.GetActiveWindow().GetList(1250);
+	list = mc.GetWindow(14000).GetList(1250);
 	set_action_from_list(list);
 	
 def handle_categories_select():
-	list = mc.GetActiveWindow().GetList(1350);
+	list = mc.GetWindow(14000).GetList(1350);
 	set_action_from_list(list);
 
 def set_action_from_list(list):
@@ -73,7 +73,7 @@ def set_action_from_list(list):
 	
 	action = item.GetProperty("action");
 	if(action != None):
-		mc.GetActiveWindow().PushState();
+		mc.GetWindow(14000).PushState();
 		set_action(action, item);
 
 def set_action(action, item = None):
@@ -88,19 +88,20 @@ def set_action(action, item = None):
 		search();
 	elif(action == 'series'):
 		if(item != None and item.GetProperty("id")):
-			mc.GetActiveWindow().PushState();
+			mc.GetWindow(14000).PushState();
 			get_series_program(item.GetProperty("id"), 1);
 		else:
 			get_series();
 	elif(action == 'broadcast'):
 		if(item != None and item.GetProperty("id")):
-			mc.GetActiveWindow().PushState();
+			mc.GetWindow(14000).PushState();
 			play_program(item, 'broadcast');
 		else:
 			get_broadcasts();
 	elif(action == 'login'):
 		login();
 	elif(action == 'program'):
+		mc.GetWindow(14000).PushState();
 		play_program(item);
 	elif(action == 'category'):
 		if(item != None and item.GetProperty("id")):

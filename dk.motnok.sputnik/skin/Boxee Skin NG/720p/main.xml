@@ -1,11 +1,7 @@
 <?xml version="1.0"?>
 <window type="window" id="14000">
-	<defaultcontrol always="true">9001</defaultcontrol>
+	<defaultcontrol>9001</defaultcontrol>
 	<allowoverlay>no</allowoverlay>
-	<onload lang="python"><![CDATA[
-from sputnik import *
-init_popular_programs(1);
-]]></onload>
 	<controls>
 <!-- Background image -->
 		<control type="largeimage" id="100">

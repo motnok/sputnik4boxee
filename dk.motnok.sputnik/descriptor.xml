@@ -8,7 +8,7 @@
   <copyright>TV 2 Danmark A/S</copyright>
   <email>krha@tv2.dk</email>
   <type>skin</type>
-  <startWindow>14000</startWindow>
+  <startWindow>init</startWindow>
   <platform>all</platform>
   <minversion>0.9.20</minversion>
 </app>
