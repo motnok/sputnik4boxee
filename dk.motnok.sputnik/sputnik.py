@@ -191,7 +191,7 @@ def get_categories(id = None):
 	
 def get_broadcasts():
 	clear();
-	items = get_broadcasts_from_url('http://r7-dyn.tv2.dk/api/sputnik/placeholder/687/content.json');
+	items = get_broadcasts_from_url('http://r7.tv2.dk/api/sputnik/schedule/current.json');
 	set_items(items);
 	show_programs_view();
 	focus_programs_view();
@@ -268,9 +268,26 @@ def get_broadcasts_from_url(url):
 	result = http.Get(url)
 	if ( result ):
 		resultObj = json.loads(result);
-		for broadcast in resultObj['entities']:
-			item = get_item_from_program(broadcast)
-			list.append(item)
+		for broadcast in resultObj['broadcasts']:
+			item = mc.ListItem( mc.ListItem.MEDIA_VIDEO_OTHER )
+			item.SetProperty("id", str(broadcast['id']))
+			item.SetLabel(unicode(broadcast['title']).encode("utf-8"))
+			if(broadcast['description'] != None):
+				item.SetDescription(unicode(broadcast['description']).encode("utf-8"))
+			if(len(broadcast['program_schedule'])>0):
+				item.SetLabel(unicode(broadcast['program_schedule'][0]['title']).encode("utf-8"))
+				item.SetDescription(unicode(broadcast['program_schedule'][0]['description']).encode("utf-8"))
+		
+			if('brand' in broadcast and broadcast['brand'] != None):
+				item.SetThumbnail(str(get_thumbnail(broadcast['brand'])));
+			else:
+				item.SetThumbnail(str(get_thumbnail(broadcast)));
+				
+			item.SetPath(get_path_from_broadcast(broadcast));
+			item.SetProperty("action", "broadcast");
+
+			list.append(item);
+			del item;
 	
 	mc.HideDialogWait()
 	return list	
@@ -301,7 +318,7 @@ def get_item_from_program(program):
 	item = mc.ListItem( mc.ListItem.MEDIA_VIDEO_EPISODE )
 	item.SetLabel(unicode(program['title']).encode("utf-8"))
 	item.SetDescription(unicode(program['description']).encode("utf-8"))
-	thumb = get_image_from_program(program)
+	thumb = get_thumbnail(program)
 	if(thumb != None):
 		item.SetThumbnail(thumb)
 	try:
@@ -326,22 +343,15 @@ def get_item_from_program(program):
 	item.SetProperty('nocharge', "0");
 	if('nocharge' in program and program['nocharge']):
 		item.SetProperty('nocharge', "1");
-	
-	if('r7_type' in program):
-		if(program['r7_type'] == "R7_Entity_Broadcast"):
-			item.SetProperty("action", "broadcast");
-		else:
-			item.SetProperty("action", "program");		
-	else:
-		item.SetProperty("action", "program");
+
+	item.SetProperty("action", "program");
 	return item
 
 def get_item_from_series(series):
 	item = mc.ListItem( mc.ListItem.MEDIA_UNKNOWN )
 	item.SetLabel(unicode(series['code']).encode("utf-8"))
 	item.SetDescription(unicode(series['description']).encode("utf-8"))
-	thumb = get_image_from_program(series)
-	mc.LogDebug(thumb);
+	thumb = get_thumbnail(series)
 	if(thumb != None):
 		item.SetThumbnail(thumb)
 	item.SetProperty("id", str(series['id']))
@@ -361,8 +371,8 @@ def get_item_from_category(category):
 
 	return item;
 	
-def get_image_from_program(program):
-	for image in program['media_images']:
+def get_thumbnail(entity):
+	for image in entity['media_images']:
 		if(str(image['media_image_type']['code']) == '16:9-thumb'):
 			for file in image['media_image_files']:
 				if(str(file['width']) == '139' and str(file['height']) == '78'):
@@ -382,7 +392,10 @@ def get_background(json):
 	return "http://sputnik-dyn.tv2.dk/css/gfx/backgrounds/generic/bluecircles_cedeea.jpg"
 
 def get_path_from_program(program):
-	return 'http://sputnik.tv2.dk/play/'+str(program['id'])+'/'
+	return 'http://sputnik.tv2.dk/play/'+str(program['id'])+'/';
+	
+def get_path_from_broadcast(broadcast):
+	return 'http://sputnik.tv2.dk/play/broadcast/'+str(broadcast['id'])+'/';
 
 def login_user(username, password):
 	http = mc.Http()
